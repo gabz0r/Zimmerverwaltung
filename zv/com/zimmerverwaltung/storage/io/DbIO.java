@@ -21,7 +21,7 @@ public class DbIO {
 
     /**
      * Liest Daten aus der Datenbank und gibt sie als ArrayList zurück
-     * @return
+     * @return Das Zeilenarray aus der Datei
      */
     public static ArrayList<String> readAllLines() {
         ResultSet rs = mysql.executeSQL("noch nicht implementiert");

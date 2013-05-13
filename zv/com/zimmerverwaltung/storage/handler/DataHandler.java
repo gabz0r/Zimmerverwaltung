@@ -125,7 +125,7 @@ public class DataHandler {
      *  - Distance
      *  - Qm
      * @param data
-     * @return
+     * @return Serialisiertes Room - Objekt
      */
     public static Room getRoomByRowData(String[] data) {
         for(Room r : rooms) {

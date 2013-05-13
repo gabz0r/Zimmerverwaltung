@@ -4,6 +4,7 @@ import com.zimmerverwaltung.storage.handler.*;
 import com.zimmerverwaltung.storage.io.*;
 import com.zimmerverwaltung.ui.custom.*;
 import com.zimmerverwaltung.users.*;
+import com.zimmerverwaltung.users.extended.*;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -19,22 +20,28 @@ import java.awt.event.*;
  */
 public class MainFrame extends JFrame {
     private User currentUser;
-    private JPanel wrapper;
+    private JPanel topWrapper;
+    private JPanel bottomWrapper;
 
     CustomTableModel model;
     CustomTable grid;
     RoomInfoPanel infoPanel;
+    UserOptionsPanel optionsPanel;
 
     private MainFrame() {
-        initUI();
     }
 
     /**
      * Initialisiert die komplette Benutzeroberfläche
      */
-    private void initUI() {
-        wrapper = new JPanel(new GridLayout(2,2));
-        getContentPane().add(wrapper);
+    public void initUI() {
+        this.setLayout(new GridLayout(2, 1));
+
+        topWrapper = new JPanel(new GridLayout(1, 1, 10, 10));
+        getContentPane().add(topWrapper);
+
+        bottomWrapper = new JPanel(new GridLayout(1, 2, 10, 10));
+        getContentPane().add(bottomWrapper);
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -61,6 +68,7 @@ public class MainFrame extends JFrame {
 
         initDataGrid();
         initInfoPanel();
+        initOptionsPanel();
     }
 
     /**
@@ -77,18 +85,29 @@ public class MainFrame extends JFrame {
         grid.addMouseListener(new CustomMouseAdapter());
 
         JScrollPane pane = new JScrollPane(grid);
-        wrapper.add(pane);
+        topWrapper.add(pane);
     }
 
     /**
-     * Initialisiert die Groupbox zur Darstellung zum Zimmer
+     * Initialisiert die Groupbox zur Darstellung des Zimmers
      */
     private void initInfoPanel() {
         infoPanel = new RoomInfoPanel();
         TitledBorder groupBox = new TitledBorder("Info");
         infoPanel.setBorder(groupBox);
 
-        wrapper.add(infoPanel);
+        bottomWrapper.add(infoPanel);
+    }
+
+    /**
+     * Initialisiert die Groupbox, welche die Operationen bereitstellt
+     */
+    private void initOptionsPanel() {
+        optionsPanel = new UserOptionsPanel<Student>((Student)getMainFrame().getCurrentUser());
+        TitledBorder groupBox = new TitledBorder("Bedienelemente");
+        optionsPanel.setBorder(groupBox);
+
+        bottomWrapper.add(optionsPanel);
     }
 
     /**
@@ -101,6 +120,7 @@ public class MainFrame extends JFrame {
             instance.setResizable(false);
             instance.setBounds(20, 20, 1000, 600);
             instance.setVisible(true);
+            instance.initUI();
         }
         return instance;
     }
@@ -118,6 +138,7 @@ public class MainFrame extends JFrame {
             instance.setVisible(true);
             instance.setCurrentUser(currentUser);
             instance.setTitle("ZVW DHBW Lörrach - " + currentUser.getUserName());
+            instance.initUI();
         }
         return instance;
     }

@@ -78,11 +78,11 @@ public class LoginFrame extends JFrame {
         });
     }
 
+    private static LoginFrame instance;
     /**
      * Singleton
      * @return Die Instanz des LoginFrames
      */
-    private static LoginFrame instance;
     public static LoginFrame getLoginFrame() {
         if(instance == null) {
             instance = new LoginFrame();

@@ -30,14 +30,17 @@ public class RoomInfoPanel extends JPanel implements Observer {
     public RoomInfoPanel() {
         super();
         EventDispatcher.getInstance().registerObserver(this);
-        description = new JLabel("Beschreibung:");
-        landlord = new JLabel("Vermieter:");
-        street = new JLabel("Straße:");
-        location = new JLabel("Ort:");
-        fees = new JLabel("Mietkosten:");
-        distance = new JLabel("Entfernung DH:");
-        qm = new JLabel("Fläche:");
-        remembered = new JLabel("");
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        description = new JLabel("Beschreibung:"); description.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+        landlord = new JLabel("Vermieter:"); landlord.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+        street = new JLabel("Straße:"); street.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+        location = new JLabel("Ort:"); location.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+        fees = new JLabel("Mietkosten:"); fees.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+        distance = new JLabel("Entfernung DH:"); distance.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+        qm = new JLabel("Fläche:"); qm.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+        remembered = new JLabel(""); remembered.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
         remembered.setForeground(Color.RED);
         remembered.setFont(new Font(remembered.getFont().getName(), Font.BOLD, remembered.getFont().getSize() + 5));
 
