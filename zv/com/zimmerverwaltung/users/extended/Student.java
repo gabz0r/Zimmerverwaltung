@@ -50,7 +50,7 @@ public class Student extends User implements IRoleStudent {
      * @param r Zu überprüfender Raum
      * @return Warheitswert, der angibt, ob der Raum bereits beobachtet wird
      */
-    public boolean watchesRoom(Room r) {
+    public boolean remembersRoom(Room r) {
         return watchList.contains(r);
     }
 }

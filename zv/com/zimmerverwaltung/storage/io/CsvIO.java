@@ -75,7 +75,12 @@ public class CsvIO {
                     BufferedReader inr = new BufferedReader(new InputStreamReader(new FileInputStream("zimmer_verg_zimmer.csv"), "ISO-8859-1"));
                     String line = inr.readLine();
                     String[] head = line.split(";");
-                    return head;
+
+                    String[] ret = new String[head.length + 1];
+                    System.arraycopy(head,0,ret, 1, head.length);
+                    ret[0] = "id";
+
+                    return ret;
                 } catch (FileNotFoundException e) { return null; }
                   catch (IOException e)           { return null; }
             }

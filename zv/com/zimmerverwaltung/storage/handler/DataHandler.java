@@ -19,6 +19,8 @@ public class DataHandler {
     private static ArrayList<Room> rooms;
     private static ArrayList<User> users;
 
+    private static int currentRoomId = 0;
+
     public static void initContainers() {
         rooms = new ArrayList<Room>();
         users = new ArrayList<User>();
@@ -34,10 +36,10 @@ public class DataHandler {
         switch(type) {
             case EDT_ROOM: {
                 if(keys.length < 8) {
-                    rooms.add(new Room(keys[0], keys[1], keys[2], keys[3], keys[4], keys[5], Float.parseFloat(keys[6]), ""));
+                    rooms.add(new Room(currentRoomId, keys[0], keys[1], keys[2], keys[3], keys[4], keys[5], Float.parseFloat(keys[6])));
                 }
                 else {
-                    rooms.add(new Room(keys[0], keys[1], keys[2], keys[3], keys[4], keys[5], Float.parseFloat(keys[6]), keys[7]));
+                    rooms.add(new Room(currentRoomId, keys[0], keys[1], keys[2], keys[3], keys[4], keys[5], Float.parseFloat(keys[6]), keys[7]));
                 }
 
                 break;
@@ -47,6 +49,8 @@ public class DataHandler {
                 break;
             }
         }
+
+        currentRoomId++;
     }
 
     /**
@@ -68,7 +72,7 @@ public class DataHandler {
                         Float qm = rss.getFloat("QM");
                         String imgPath = rss.getString("IMG_PATH");
 
-                        rooms.add(new Room(description, landlord, street, location, fees, distance, qm, imgPath));
+                        rooms.add(rss.getRow(), new Room(rss.getRow(), description, landlord, street, location, fees, distance, qm, imgPath));
                         break;
                     }
                 }
@@ -110,15 +114,29 @@ public class DataHandler {
         return results;
     }
 
+    /**
+     * Liefert ein Room - Objekt aus dem Container, dass den erhaltenen Daten entspricht
+     * Das Array muss 7 Einträge lang sein:
+     *  - Description
+     *  - Landlord
+     *  - Street
+     *  - Location
+     *  - Fees
+     *  - Distance
+     *  - Qm
+     * @param data
+     * @return
+     */
     public static Room getRoomByRowData(String[] data) {
         for(Room r : rooms) {
-            if(r.getDescription().equals(data[0]) &&
-               r.getLandlord().equals(data[1]) &&
-               r.getStreet().equals(data[2]) &&
-               r.getLocation().equals(data[3]) &&
-               r.getFees().equals(data[4]) &&
-               r.getDistance().equals(data[5]) &&
-               r.getQm() == Float.parseFloat(data[6])) {
+            if(r.getId() == Integer.parseInt(data[0]) &&
+               r.getDescription().equals(data[1]) &&
+               r.getLandlord().equals(data[2]) &&
+               r.getStreet().equals(data[3]) &&
+               r.getLocation().equals(data[4]) &&
+               r.getFees().equals(data[5]) &&
+               r.getDistance().equals(data[6]) &&
+               r.getQm() == Float.parseFloat(data[7])) {
 
                 return r;
             }
@@ -165,6 +183,11 @@ public class DataHandler {
 
     }
 
+    /**
+     * Mapt die gelesenen Daten in ein Format, dass die JTable versteht (2D - Array)
+     * @param type Welcher Container gemappt werden soll
+     * @return Den Container in Array - Darstellung
+     */
     public static String[][] mapToStringArray(ZvwDataType type) {
         switch(type) {
             case EDT_USER: {
@@ -178,16 +201,17 @@ public class DataHandler {
                 return usersRet;
             }
             case EDT_ROOM: {
-                String[][] roomsRet = new String[rooms.size()][8];
+                String[][] roomsRet = new String[rooms.size()][9];
                 for(int i = 0; i < rooms.size(); i++) {
-                    roomsRet[i][0] = rooms.get(i).getDescription();
-                    roomsRet[i][1] = rooms.get(i).getLandlord();
-                    roomsRet[i][2] = rooms.get(i).getStreet();
-                    roomsRet[i][3] = rooms.get(i).getLocation();
-                    roomsRet[i][4] = rooms.get(i).getFees();
-                    roomsRet[i][5] = rooms.get(i).getDistance();
-                    roomsRet[i][6] = String.valueOf(rooms.get(i).getQm()) + " m²";
-                    roomsRet[i][7] = rooms.get(i).getImgPath();
+                    roomsRet[i][0] = String.valueOf(rooms.get(i).getId());
+                    roomsRet[i][1] = rooms.get(i).getDescription();
+                    roomsRet[i][2] = rooms.get(i).getLandlord();
+                    roomsRet[i][3] = rooms.get(i).getStreet();
+                    roomsRet[i][4] = rooms.get(i).getLocation();
+                    roomsRet[i][5] = rooms.get(i).getFees();
+                    roomsRet[i][6] = rooms.get(i).getDistance();
+                    roomsRet[i][7] = String.valueOf(rooms.get(i).getQm()) + " m²";
+                    roomsRet[i][8] = rooms.get(i).getImgPath();
                 }
                 return roomsRet;
             }

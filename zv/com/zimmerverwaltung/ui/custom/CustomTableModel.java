@@ -1,6 +1,7 @@
 package com.zimmerverwaltung.ui.custom;
 
 import javax.swing.table.*;
+import java.awt.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,6 +11,7 @@ import javax.swing.table.*;
  * To change this template use File | Settings | File Templates.
  */
 public class CustomTableModel extends DefaultTableModel {
+
     public CustomTableModel(String[][] data, String[] header) {
         super(data, header);
     }
