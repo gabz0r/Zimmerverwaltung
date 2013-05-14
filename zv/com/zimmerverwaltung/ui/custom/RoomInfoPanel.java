@@ -33,14 +33,14 @@ public class RoomInfoPanel extends JPanel implements Observer {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        description = new JLabel("Beschreibung:"); description.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-        landlord = new JLabel("Vermieter:"); landlord.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-        street = new JLabel("Straße:"); street.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-        location = new JLabel("Ort:"); location.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-        fees = new JLabel("Mietkosten:"); fees.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-        distance = new JLabel("Entfernung DH:"); distance.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-        qm = new JLabel("Fläche:"); qm.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-        remembered = new JLabel(""); remembered.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+        description = new JLabel("Beschreibung:"); description.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+        landlord = new JLabel("Vermieter:"); landlord.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+        street = new JLabel("Straße:"); street.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+        location = new JLabel("Ort:"); location.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+        fees = new JLabel("Mietkosten:"); fees.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+        distance = new JLabel("Entfernung DH:"); distance.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+        qm = new JLabel("Fläche:"); qm.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+        remembered = new JLabel(""); remembered.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
         remembered.setForeground(Color.RED);
         remembered.setFont(new Font(remembered.getFont().getName(), Font.BOLD, remembered.getFont().getSize() + 5));
 
@@ -64,6 +64,10 @@ public class RoomInfoPanel extends JPanel implements Observer {
         }
     }
 
+    /**
+     * Aktualisiert das InfoPanel mit einem neuen Raum
+     * @param r Der Raum, der im InfoPanel dargestellt werden soll
+     */
     private void updateCurrentRoom(Room r) {
         description.setText("Beschreibung: " + r.getDescription());
         landlord.setText("Vermieter: " + r.getLandlord());

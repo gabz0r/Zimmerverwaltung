@@ -2,9 +2,7 @@ package com.zimmerverwaltung.storage.handler;
 
 import com.zimmerverwaltung.storage.container.*;
 import com.zimmerverwaltung.users.*;
-import com.zimmerverwaltung.users.extended.Landlord;
 
-import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -88,23 +86,107 @@ public class DataHandler {
      * @param keyType Typ des Suchattributs
      * @return Alle passenden Ergebnisse
      */
-    public static Room[] searchRoom(String token, SearchType keyType) {
-        Room[] results = null;
+    public static ArrayList<Room> searchRoom(String token, SearchType keyType) {
+        ArrayList<Room> results = new ArrayList<Room>();
 
         switch(keyType) {
             case EST_DISTANCE: {
+                for(Room r : rooms) {
+                    if(Float.parseFloat(r.getDistance().replace("km", "")) <= Float.parseFloat(token)) {
+                        results.add(r);
+                    }
+                }
                 break;
             }
             case EST_FEES: {
+                for(Room r : rooms) {
+                    if(Float.parseFloat(r.getFees().split(" ")[0]) <= Float.parseFloat(token)) {
+                        results.add(r);
+                    }
+                }
                 break;
             }
             case EST_LOCATION: {
+                for(Room r : rooms) {
+                    if(r.getLocation().toLowerCase().equals(token.toLowerCase())) {
+                        results.add(r);
+                    }
+                }
                 break;
             }
             case EST_QM: {
+                for(Room r : rooms) {
+                    if(r.getQm() >= Float.parseFloat(token)) {
+                        results.add(r);
+                    }
+                }
                 break;
             }
             case EST_STREET: {
+                for(Room r : rooms) {
+                    if(r.getStreet().toLowerCase().equals(token.toLowerCase())) {
+                        results.add(r);
+                    }
+                }
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+        return results;
+    }
+
+
+    /**
+     * Suchfunktion nach einen bestimmten Attribut im mitgegebnem Container
+     * @param token Suchattribut
+     * @param keyType Typ des Suchattributs
+     * @param searchContainer container, in dem gesucht werden soll
+     * @return Alle passenden Ergebnisse
+     */
+    public static ArrayList<Room> searchRoom(String token, SearchType keyType, ArrayList<Room> searchContainer) {
+        ArrayList<Room> results = new ArrayList<Room>();
+
+        switch(keyType) {
+            case EST_DISTANCE: {
+                for(Room r : searchContainer) {
+                    if(Float.parseFloat(r.getDistance().replace("km", "")) <= Float.parseFloat(token)) {
+                        results.add(r);
+                    }
+                }
+                break;
+            }
+            case EST_FEES: {
+                for(Room r : searchContainer) {
+                    if(Float.parseFloat(r.getFees().split(" ")[0].replace(',', '.')) <= Float.parseFloat(token.replace(',','.'))) {
+                        results.add(r);
+                    }
+                }
+                break;
+            }
+            case EST_LOCATION: {
+                for(Room r : searchContainer) {
+                    if(r.getLocation().toLowerCase().contains(token.toLowerCase())) {
+                        results.add(r);
+                    }
+                }
+                break;
+            }
+            case EST_QM: {
+                for(Room r : searchContainer) {
+                    if(r.getQm() >= Float.parseFloat(token.replace(',','.'))) {
+                        results.add(r);
+                    }
+                }
+                break;
+            }
+            case EST_STREET: {
+                for(Room r : searchContainer) {
+                    if(r.getStreet().toLowerCase().contains(token.toLowerCase())) {
+                        results.add(r);
+                    }
+                }
                 break;
             }
             default: {
@@ -219,5 +301,74 @@ public class DataHandler {
                 return null;
             }
         }
+    }
+
+    /**
+     * Mapt die gelesenen Daten in ein Format, dass die JTable versteht (2D - Array)
+     * @param data Der benutzerdefinierte Container
+     * @return Den Container in Array - Darstellung
+     */
+    public static <T> String[][] mapToStringArray(ArrayList<T> data) {
+        if(data.size() > 0) {
+            if(data.get(0).getClass() == User.class) {
+                String[][] usersRet = new String[data.size()][4];
+                for(int i = 0; i < data.size(); i++) {
+                    usersRet[i][0] = ((User)data.get(i)).getFirstName();
+                    usersRet[i][1] = ((User)data.get(i)).getLastName();
+                    usersRet[i][2] = ((User)data.get(i)).getUserName();
+                    usersRet[i][3] = ((User)data.get(i)).getPassword();
+                }
+                return usersRet;
+            }
+            else if(data.get(0).getClass() == Room.class) {
+                String[][] roomsRet = new String[data.size()][9];
+                for(int i = 0; i < data.size(); i++) {
+                    roomsRet[i][0] = String.valueOf(rooms.get(i).getId());
+                    roomsRet[i][1] = ((Room)data.get(i)).getDescription();
+                    roomsRet[i][2] = ((Room)data.get(i)).getLandlord();
+                    roomsRet[i][3] = ((Room)data.get(i)).getStreet();
+                    roomsRet[i][4] = ((Room)data.get(i)).getLocation();
+                    roomsRet[i][5] = ((Room)data.get(i)).getFees();
+                    roomsRet[i][6] = ((Room)data.get(i)).getDistance();
+                    roomsRet[i][7] = String.valueOf(((Room)data.get(i)).getQm()) + " m²";
+                    roomsRet[i][8] = ((Room)data.get(i)).getImgPath();
+                }
+                return roomsRet;
+            }
+            else {
+                return new String[][] { };
+            }
+        }
+        else {
+            return new String[][] { };
+        }
+    }
+
+    /**
+     * Sucht Räume nach mehreren Kriterien
+     * @param tokens Suchkriterien
+     * @return Die Liste mit entsprechenden Räumen
+     */
+    public static ArrayList<Room> searchRoomsByTokens(RoomTokens tokens) {
+        ArrayList<Room> resList = new ArrayList<Room>(rooms);
+
+        if(!tokens.getDistance().equals("")) {
+            resList = searchRoom(tokens.getDistance(),SearchType.EST_DISTANCE);
+        }
+        if(!tokens.getFees().equals("")) {
+            resList = searchRoom(tokens.getFees(), SearchType.EST_FEES, resList);
+        }
+        if(!tokens.getLocation().equals("")) {
+            resList = searchRoom(tokens.getLocation(), SearchType.EST_LOCATION, resList);
+        }
+        if(!tokens.getQm().equals("")) {
+            resList = searchRoom(tokens.getQm(), SearchType.EST_QM, resList);
+        }
+        if(!tokens.getStreet().equals("")) {
+            resList = searchRoom(tokens.getStreet(), SearchType.EST_STREET, resList);
+        }
+
+        return resList;
+
     }
 }

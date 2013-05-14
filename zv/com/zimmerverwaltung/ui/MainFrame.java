@@ -28,6 +28,9 @@ public class MainFrame extends JFrame {
     RoomInfoPanel infoPanel;
     UserOptionsPanel optionsPanel;
 
+    CustomMouseAdapter mouseAdapter;
+    CustomTableRenderer tableRenderer;
+
     private MainFrame() {
     }
 
@@ -75,14 +78,17 @@ public class MainFrame extends JFrame {
      * Initialisiert die Datentabelle zur Darstellung aller Zimmer
      */
     private void initDataGrid() {
+        mouseAdapter = new CustomMouseAdapter();
+        tableRenderer = new CustomTableRenderer();
+
         model = new CustomTableModel(DataHandler.mapToStringArray(ZvwDataType.EDT_ROOM), CsvIO.getColumnNames(ZvwDataType.EDT_ROOM));
         grid = new CustomTable(model);
 
         grid.hideColumns(new String[] { "id", "Bild" });
 
-        grid.setDefaultRenderer(Object.class, new CustomTableRenderer());
+        grid.setDefaultRenderer(Object.class, tableRenderer);
         grid.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        grid.addMouseListener(new CustomMouseAdapter());
+        grid.addMouseListener(mouseAdapter);
 
         JScrollPane pane = new JScrollPane(grid);
         topWrapper.add(pane);
@@ -157,5 +163,13 @@ public class MainFrame extends JFrame {
 
     public RoomInfoPanel getInfoPanel() {
         return infoPanel;
+    }
+
+    public CustomTableRenderer getTableRenderer() {
+        return tableRenderer;
+    }
+
+    public CustomMouseAdapter getMouseAdapter() {
+        return mouseAdapter;
     }
 }

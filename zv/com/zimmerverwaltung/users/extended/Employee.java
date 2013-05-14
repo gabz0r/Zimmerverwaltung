@@ -20,4 +20,9 @@ public class Employee extends User implements IRoleEmployee, IRoleLandlord {
     public Employee(String line) {
         super(line.split(";")[3], line.split(";")[4]);
     }
+
+    @Override
+    public String getRoleName() {
+        return "Mitarbeiter";
+    }
 }

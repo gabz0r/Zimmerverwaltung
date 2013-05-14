@@ -53,4 +53,9 @@ public class Student extends User implements IRoleStudent {
     public boolean remembersRoom(Room r) {
         return watchList.contains(r);
     }
+
+    @Override
+    public String getRoleName() {
+        return "Student";
+    }
 }

@@ -84,4 +84,6 @@ public abstract class User {
             return new Student(line);
         }
     }
+
+    public abstract String getRoleName();
 }

@@ -20,4 +20,9 @@ public class Landlord extends User implements IRoleLandlord {
     public Landlord(String line) {
         super(line.split(";")[3], line.split(";")[4]);
     }
+
+    @Override
+    public String getRoleName() {
+        return "Vermieter";
+    }
 }
