@@ -71,8 +71,7 @@ public class LoginFrame extends JFrame {
                 }
                 else {
                     MainFrame.getMainFrame(DataHandler.getCorrespondingUserObject(userName.getText(), pw));
-                    getLoginFrame().setVisible(false);
-                    getLoginFrame().dispose();
+                    close();
                 }
             }
         });
@@ -90,6 +89,17 @@ public class LoginFrame extends JFrame {
             instance.setTitle("Login");
             instance.setVisible(true);
         }
+        instance.setVisible(true);
         return instance;
+    }
+
+    public void close() {
+        this.setVisible(false);
+        this.dispose();
+        LoginFrame.setNull();
+    }
+
+    public static void setNull() {
+        instance = null;
     }
 }

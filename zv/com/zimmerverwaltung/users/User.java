@@ -8,6 +8,8 @@ package com.zimmerverwaltung.users;
  * To change this template use File | Settings | File Templates.
  */
 
+import com.zimmerverwaltung.ui.LoginFrame;
+import com.zimmerverwaltung.ui.MainFrame;
 import com.zimmerverwaltung.users.extended.Employee;
 import com.zimmerverwaltung.users.extended.Landlord;
 import com.zimmerverwaltung.users.extended.Student;
@@ -86,4 +88,9 @@ public abstract class User {
     }
 
     public abstract String getRoleName();
+
+    public void logout() {
+        LoginFrame.getLoginFrame();
+        MainFrame.getMainFrame().close();
+    }
 }

@@ -117,6 +117,15 @@ public class MainFrame extends JFrame {
     }
 
     /**
+     * Schließt das Fenster, die Anwendung läuft jedoch weiter
+     */
+    public void close() {
+        this.setVisible(false);
+        this.dispose();
+        MainFrame.setNull();
+    }
+
+    /**
      * Singleton
      */
     private static MainFrame instance;
@@ -128,6 +137,7 @@ public class MainFrame extends JFrame {
             instance.setVisible(true);
             instance.initUI();
         }
+        instance.setVisible(true);
         return instance;
     }
 
@@ -146,7 +156,12 @@ public class MainFrame extends JFrame {
             instance.setTitle("ZVW DHBW Lörrach - " + currentUser.getUserName());
             instance.initUI();
         }
+        instance.setVisible(true);
         return instance;
+    }
+
+    public static void setNull() {
+        instance = null;
     }
 
     public User getCurrentUser() {

@@ -27,14 +27,16 @@ public class UserOptionsPanel<T extends User> extends JPanel {
     JPanel searchOptions;
     JPanel roleOptions;
 
-    JButton searchButton;
+    //Felder im Allgemeintab
+    JButton logout;
 
-    //Suchfelder
+    //Felder im Suchtab
     JTextField distance;
     JTextField fees;
     JTextField location;
     JTextField qm;
     JTextField street;
+    JButton searchButton;
 
     private T currentUser;
 
@@ -49,6 +51,7 @@ public class UserOptionsPanel<T extends User> extends JPanel {
         searchOptions = new JPanel();
         roleOptions = new JPanel();
 
+        setupGeneralTab();
         setupSearchTab();
 
         currentRole = new JLabel();
@@ -100,7 +103,6 @@ public class UserOptionsPanel<T extends User> extends JPanel {
 
                 getMainFrame().getGrid().setDefaultRenderer(Object.class, getMainFrame().getTableRenderer());
                 getMainFrame().getGrid().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                getMainFrame().getGrid().addMouseListener(getMainFrame().getMouseAdapter());
             }
         });
 
@@ -129,7 +131,23 @@ public class UserOptionsPanel<T extends User> extends JPanel {
         searchOptions.add(dummyButton);
         searchOptions.add(searchButton);
 
-        SpringUtilities.makeCompactGrid(searchOptions,6, 2, 10, 10, 10, 10);
+        SpringUtilities.makeCompactGrid(searchOptions,6, 2, 10, 10, 5, 5);
+    }
+
+    private void setupGeneralTab() {
+        generalOptions.setLayout(new SpringLayout());
+
+        logout = new JButton("Ausloggen");
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(JOptionPane.showConfirmDialog(getMainFrame(), "Ausloggen?", "Zimmerverwaltung", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    getMainFrame().getCurrentUser().logout();
+                }
+            }
+        });
+
+        generalOptions.add(logout);
     }
 
     private boolean validateTextFields() {
