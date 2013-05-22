@@ -1,4 +1,4 @@
-package com.zimmerverwaltung.ui.custom;
+package com.zimmerverwaltung.ui.custom.roomtable;
 
 import com.zimmerverwaltung.storage.handler.*;
 import com.zimmerverwaltung.ui.*;
@@ -42,12 +42,13 @@ public class CustomTableRenderer extends DefaultTableCellRenderer {
         }
 
         if(MainFrame.getMainFrame().getCurrentUser() instanceof Student) {
-            if(((Student)MainFrame.getMainFrame().getCurrentUser()).remembersRoom(DataHandler.getRoomByRowData(rowData))) {
-                //c.setBackground(Color.GRAY);
+            /*if(((Student)MainFrame.getMainFrame().getCurrentUser()).remembersRoom(DataHandler.getRoomByRowData(rowData))
+               && table.getValueAt((int)c.getLocation().getX(), 0).equals(rowData[0])) {
+                c.setBackground(Color.GREEN);
             }
             else {
-                //c.setBackground(Color.GREEN);
-            }
+                c.setBackground(Color.WHITE);
+            }                */
         }
 
         return this;

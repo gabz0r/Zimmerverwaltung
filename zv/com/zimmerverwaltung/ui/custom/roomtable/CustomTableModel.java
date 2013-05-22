@@ -1,4 +1,4 @@
-package com.zimmerverwaltung.ui.custom;
+package com.zimmerverwaltung.ui.custom.roomtable;
 
 import javax.swing.table.*;
 import java.awt.*;
@@ -14,6 +14,8 @@ public class CustomTableModel extends DefaultTableModel {
 
     public CustomTableModel(String[][] data, String[] header) {
         super(data, header);
+        this.addColumn("Gemerkt");
+
     }
 
     @Override

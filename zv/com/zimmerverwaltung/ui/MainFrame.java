@@ -2,7 +2,12 @@ package com.zimmerverwaltung.ui;
 
 import com.zimmerverwaltung.storage.handler.*;
 import com.zimmerverwaltung.storage.io.*;
-import com.zimmerverwaltung.ui.custom.*;
+import com.zimmerverwaltung.ui.custom.panels.RoomInfoPanel;
+import com.zimmerverwaltung.ui.custom.panels.UserOptionsPanel;
+import com.zimmerverwaltung.ui.custom.roomtable.CustomMouseAdapter;
+import com.zimmerverwaltung.ui.custom.roomtable.CustomTable;
+import com.zimmerverwaltung.ui.custom.roomtable.CustomTableModel;
+import com.zimmerverwaltung.ui.custom.roomtable.CustomTableRenderer;
 import com.zimmerverwaltung.users.*;
 import com.zimmerverwaltung.users.extended.*;
 

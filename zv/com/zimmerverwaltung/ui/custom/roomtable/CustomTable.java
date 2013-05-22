@@ -1,4 +1,4 @@
-package com.zimmerverwaltung.ui.custom;
+package com.zimmerverwaltung.ui.custom.roomtable;
 
 import javax.swing.*;
 import javax.swing.table.*;
@@ -13,6 +13,8 @@ import javax.swing.table.*;
 public class CustomTable extends JTable {
     public CustomTable(AbstractTableModel model) {
         super(model);
+
+        this.getColumn("Gemerkt").setWidth(20);
 
         getTableHeader().setReorderingAllowed(false);
     }

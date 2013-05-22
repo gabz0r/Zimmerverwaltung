@@ -24,7 +24,7 @@ public class Room {
     private float qm;
     private String imgPath;
 
-    public Room(int id, String description, String landlord, String street, String location, String fees, String distance, float qm, String imgPath) {
+    public Room(String description, String landlord, String street, String location, String fees, String distance, float qm, String imgPath, int id) {
         this.id = id;
         this.description = description;
         this.landlord = landlord;
@@ -36,7 +36,7 @@ public class Room {
         this.imgPath = imgPath;
     }
 
-    public Room(int id, String description, String landlord, String street, String location, String fees, String distance, float qm) {
+    public Room(String description, String landlord, String street, String location, String fees, String distance, float qm, int id) {
         this.id = id;
         this.description = description;
         this.landlord = landlord;
@@ -118,5 +118,18 @@ public class Room {
 
     public void setQm(float qm) {
         this.qm = qm;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(((Room) o).getId() == getId()) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

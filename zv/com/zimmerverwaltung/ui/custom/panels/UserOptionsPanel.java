@@ -1,9 +1,11 @@
-package com.zimmerverwaltung.ui.custom;
+package com.zimmerverwaltung.ui.custom.panels;
 
 import com.zimmerverwaltung.storage.container.*;
 import com.zimmerverwaltung.storage.handler.*;
 import com.zimmerverwaltung.storage.io.*;
 import static com.zimmerverwaltung.ui.MainFrame.*;
+
+import com.zimmerverwaltung.ui.custom.roomtable.CustomTableModel;
 import com.zimmerverwaltung.ui.util.*;
 import com.zimmerverwaltung.users.*;
 

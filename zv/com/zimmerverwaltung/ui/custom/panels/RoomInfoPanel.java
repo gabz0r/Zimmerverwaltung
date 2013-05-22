@@ -1,11 +1,14 @@
-package com.zimmerverwaltung.ui.custom;
+package com.zimmerverwaltung.ui.custom.panels;
 
 import com.zimmerverwaltung.storage.container.*;
+import com.zimmerverwaltung.ui.ImageFrame;
 import com.zimmerverwaltung.ui.dispatcher.*;
 import com.zimmerverwaltung.users.extended.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 
 import static com.zimmerverwaltung.ui.MainFrame.*;
@@ -25,7 +28,9 @@ public class RoomInfoPanel extends JPanel implements Observer {
     JLabel fees;
     JLabel distance;
     JLabel qm;
-    JLabel remembered;
+    JButton watchImg;
+
+    Room currentRoom;
 
     public RoomInfoPanel() {
         super();
@@ -40,9 +45,18 @@ public class RoomInfoPanel extends JPanel implements Observer {
         fees = new JLabel("Mietkosten:"); fees.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
         distance = new JLabel("Entfernung DH:"); distance.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
         qm = new JLabel("Fläche:"); qm.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
-        remembered = new JLabel(""); remembered.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
-        remembered.setForeground(Color.RED);
-        remembered.setFont(new Font(remembered.getFont().getName(), Font.BOLD, remembered.getFont().getSize() + 5));
+        watchImg = new JButton("Bild anschauen");
+        watchImg.setEnabled(false);
+
+        watchImg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(currentRoom != null) {
+                    ImageFrame.getImageFrame(currentRoom.getImgPath());
+                }
+            }
+
+        });
 
         this.add(description);
         this.add(landlord);
@@ -51,7 +65,7 @@ public class RoomInfoPanel extends JPanel implements Observer {
         this.add(fees);
         this.add(distance);
         this.add(qm);
-        this.add(remembered);
+        this.add(watchImg);
     }
 
     @Override
@@ -59,6 +73,8 @@ public class RoomInfoPanel extends JPanel implements Observer {
         if(o instanceof EventDispatcher) {
             DispatcherObject disp = (DispatcherObject)arg;
             Room selectedRoom = (Room)disp.getContent();
+
+            currentRoom = selectedRoom;
 
             updateCurrentRoom(selectedRoom);
         }
@@ -77,16 +93,11 @@ public class RoomInfoPanel extends JPanel implements Observer {
         distance.setText("Entfernung DH: " + r.getDescription());
         qm.setText("Fläche: " + String.valueOf(r.getQm()) + " m²");
 
-        if(getMainFrame().getCurrentUser() instanceof Student) {
-            if(((Student)getMainFrame().getCurrentUser()).remembersRoom(r)) {
-                remembered.setText("GEMERKT");
-            }
-            else {
-                remembered.setText("");
-            }
+        if(r.getImgPath().equals("")) {
+            watchImg.setEnabled(false);
         }
         else {
-            remembered.setText("");
+            watchImg.setEnabled(true);
         }
     }
 }

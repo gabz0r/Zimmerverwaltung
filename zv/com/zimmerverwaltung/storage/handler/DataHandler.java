@@ -17,8 +17,6 @@ public class DataHandler {
     private static ArrayList<Room> rooms;
     private static ArrayList<User> users;
 
-    private static int currentRoomId = 0;
-
     public static void initContainers() {
         rooms = new ArrayList<Room>();
         users = new ArrayList<User>();
@@ -33,11 +31,11 @@ public class DataHandler {
         String[] keys = line.split(";");
         switch(type) {
             case EDT_ROOM: {
-                if(keys.length < 8) {
-                    rooms.add(new Room(currentRoomId, keys[0], keys[1], keys[2], keys[3], keys[4], keys[5], Float.parseFloat(keys[6])));
+                if(keys[7].equals("")) {
+                    rooms.add(new Room(keys[0], keys[1], keys[2], keys[3], keys[4], keys[5], Float.parseFloat(keys[6]), Integer.parseInt(keys[8])));
                 }
                 else {
-                    rooms.add(new Room(currentRoomId, keys[0], keys[1], keys[2], keys[3], keys[4], keys[5], Float.parseFloat(keys[6]), keys[7]));
+                    rooms.add(new Room(keys[0], keys[1], keys[2], keys[3], keys[4], keys[5], Float.parseFloat(keys[6]), keys[7], Integer.parseInt(keys[8])));
                 }
 
                 break;
@@ -47,8 +45,6 @@ public class DataHandler {
                 break;
             }
         }
-
-        currentRoomId++;
     }
 
     /**
@@ -61,6 +57,7 @@ public class DataHandler {
             while(rss.next()) {
                 switch(type) {
                     case EDT_ROOM: {
+                        int id = rss.getInt("ID");
                         String description = rss.getString("DESCRIPTION");
                         String landlord = rss.getString("LANDLORD");
                         String street = rss.getString("STREET");
@@ -70,7 +67,7 @@ public class DataHandler {
                         Float qm = rss.getFloat("QM");
                         String imgPath = rss.getString("IMG_PATH");
 
-                        rooms.add(rss.getRow(), new Room(rss.getRow(), description, landlord, street, location, fees, distance, qm, imgPath));
+                        rooms.add(new Room(description, landlord, street, location, fees, distance, qm, imgPath, id));
                         break;
                     }
                 }

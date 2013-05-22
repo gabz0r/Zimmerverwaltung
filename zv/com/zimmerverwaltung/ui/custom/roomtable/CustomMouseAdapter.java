@@ -1,4 +1,4 @@
-package com.zimmerverwaltung.ui.custom;
+package com.zimmerverwaltung.ui.custom.roomtable;
 
 import com.zimmerverwaltung.storage.container.*;
 import com.zimmerverwaltung.storage.handler.*;
