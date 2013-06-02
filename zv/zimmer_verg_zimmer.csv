@@ -1,13 +1,13 @@
 Beschreibung;Vermieter;Straße;Ort;Preis;Entfernung zur DHBW;qm;Bild
-Wohnheimzimmer;DHBW Lörrach;Hangstraße 1;Lörrach;200,00 €;0km;15;
-Wohnheimzimmer;DHBW Lörrach;Hangstraße 1;Lörrach;200,00 €;0km;15;
-Wohnheimzimmer;DHBW Lörrach;Hangstraße 1;Lörrach;200,00 €;0km;15;
-Wohnheimzimmer;DHBW Lörrach;Hangstraße 1;Lörrach;200,00 €;0km;15;
-Wohnheimzimmer;DHBW Lörrach;Hangstraße 1;Lörrach;200,00 €;0km;15;
-Wohnheimzimmer;DHBW Lörrach;Hangstraße 1;Lörrach;200,00 €;0km;15;
-Wohnheimzimmer;DHBW Lörrach;Hangstraße 1;Lörrach;200,00 €;0km;15;
-Wohnheimzimmer;DHBW Lörrach;Hangstraße 1;Lörrach;200,00 €;0km;15;
-WG-Zimmer in zentraler Lage;Chr_Kam;Belchenstraße 11;Lörrach;175,00 €;1.2km;13;pics/zimmer1.png
-1 Zimmer Whg.;Sab_Kan;Wintersbuckstraße 12;Lörrach;350,00 €;3km;25;pics/zimmer2.jpg
-1 Zimmer Whg.;Sab_Kan;Kanderweg 3;Rümmingen;280,00 €;6km;22;
-1 Zimmer Whg.;Fra_Pag;Wiesenstraße 3;Lörrach – Haagen;300,00 €;4km;23;
+Wohnheimzimmer;DHBW Lörrach;Hangstraße 1;Lörrach;200,00 €;0km;15;;0
+Wohnheimzimmer;DHBW Lörrach;Hangstraße 1;Lörrach;200,00 €;0km;15;;1
+Wohnheimzimmer;DHBW Lörrach;Hangstraße 1;Lörrach;200,00 €;0km;15;;2
+Wohnheimzimmer;DHBW Lörrach;Hangstraße 1;Lörrach;200,00 €;0km;15;;3
+Wohnheimzimmer;DHBW Lörrach;Hangstraße 1;Lörrach;200,00 €;0km;15;;4
+Wohnheimzimmer;DHBW Lörrach;Hangstraße 1;Lörrach;200,00 €;0km;15;;5
+Wohnheimzimmer;DHBW Lörrach;Hangstraße 1;Lörrach;200,00 €;0km;15;;6
+Wohnheimzimmer;DHBW Lörrach;Hangstraße 1;Lörrach;200,00 €;0km;15;;7
+WG-Zimmer in zentraler Lage;Chr_Kam;Belchenstraße 11;Lörrach;175,00 €;1.2km;13;pics/zimmer1.png;8
+1 Zimmer Whg.;Sab_Kan;Wintersbuckstraße 12;Lörrach;350,00 €;3km;25;pics/zimmer2.jpg;9
+1 Zimmer Whg.;Sab_Kan;Kanderweg 3;Rümmingen;280,00 €;6km;22;;10
+1 Zimmer Whg.;Fra_Pag;Wiesenstraße 3;Lörrach – Haagen;300,00 €;4km;23;;11

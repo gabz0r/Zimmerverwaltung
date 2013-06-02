@@ -20,6 +20,7 @@ public class ImageViewerPanel extends JPanel {
     public ImageViewerPanel(String path) {
         try {
             img = ImageIO.read(new File(path));
+
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

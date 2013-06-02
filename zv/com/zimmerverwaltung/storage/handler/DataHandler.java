@@ -1,7 +1,10 @@
 package com.zimmerverwaltung.storage.handler;
 
 import com.zimmerverwaltung.storage.container.*;
+import com.zimmerverwaltung.storage.io.CsvIO;
+import com.zimmerverwaltung.ui.MainFrame;
 import com.zimmerverwaltung.users.*;
+import com.zimmerverwaltung.users.extended.Student;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -259,7 +262,7 @@ public class DataHandler {
      * Speichert alle Daten, die in den Containern aufgenommen wurden
      */
     public static void writeAllData() {
-
+        CsvIO.appendRoomsToUser(MainFrame.getMainFrame().getCurrentUser(), ((Student)MainFrame.getMainFrame().getCurrentUser()).getWatchList());
     }
 
     /**
@@ -363,9 +366,28 @@ public class DataHandler {
         }
         if(!tokens.getStreet().equals("")) {
             resList = searchRoom(tokens.getStreet(), SearchType.EST_STREET, resList);
+}
+
+return resList;
+
+}
+
+/**
+ *
+ * @param tags
+ * @return
+ */
+    public static ArrayList<Room> getRoomsByIdTags(String tags) {
+        String[] t = tags.split("-");
+        ArrayList<Room> ret = new ArrayList<Room>();
+
+        for(int i = 0; i < t.length; i++) {
+            for(Room e : rooms) {
+                if(String.valueOf(e.getId()).equals(t[i])) {
+                    ret.add(e);
+                }
+            }
         }
-
-        return resList;
-
+        return ret;
     }
 }

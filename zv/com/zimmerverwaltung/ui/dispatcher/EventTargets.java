@@ -8,5 +8,6 @@ package com.zimmerverwaltung.ui.dispatcher;
  * To change this template use File | Settings | File Templates.
  */
 public enum EventTargets {
-    EET_INFOPANEL
+    EET_INFOPANEL,
+    EET_DATATABLE
 }

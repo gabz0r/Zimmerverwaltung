@@ -14,7 +14,7 @@ public class CustomTable extends JTable {
     public CustomTable(AbstractTableModel model) {
         super(model);
 
-        this.getColumn("Gemerkt").setWidth(20);
+        this.getColumn("Gemerkt").setMaxWidth(60);
 
         getTableHeader().setReorderingAllowed(false);
     }

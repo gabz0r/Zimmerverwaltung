@@ -24,6 +24,7 @@ public class ImageFrame extends JFrame {
     private void initUI(String path) {
         panel = new ImageViewerPanel(path);
         this.add(panel);
+        this.setResizable(false);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         addWindowListener(new WindowAdapter() {
@@ -37,7 +38,7 @@ public class ImageFrame extends JFrame {
     public static ImageFrame getImageFrame(String imgPath) {
         if(instance == null) {
             instance = new ImageFrame(imgPath);
-            instance.setBounds(200, 200, instance.getPanel().getImgWidth() + 16, instance.getPanel().getImgHeight() + 39);
+            instance.setBounds(200, 200, instance.getPanel().getImgWidth() + 6, instance.getPanel().getImgHeight() + 29);
         }
         instance.setVisible(true);
         return instance;

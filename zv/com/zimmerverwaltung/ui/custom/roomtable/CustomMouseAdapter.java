@@ -37,6 +37,10 @@ public class CustomMouseAdapter extends MouseAdapter {
         EventDispatcher.getInstance().dispatch(EventTargets.EET_INFOPANEL, room);
 
         if(e.getClickCount() == 2) {
+            if(((Student)getMainFrame().getCurrentUser()).getWatchList().size() >= 4) {
+                JOptionPane.showMessageDialog(getMainFrame(), "Es können nicht mehr als vier Zimmer beobachtet werden!", "Zimmerverwaltung", JOptionPane.OK_OPTION);
+                return;
+            }
             if(getMainFrame().getCurrentUser() instanceof Student) {
                 String[] searchTokens = new String [] {
                         ((JTable)e.getSource()).getValueAt(((JTable) e.getSource()).getSelectedRow(), 0).toString(), //id
@@ -59,6 +63,8 @@ public class CustomMouseAdapter extends MouseAdapter {
                         JOptionPane.showConfirmDialog(getMainFrame(), "Zimmer nicht mehr merken?", "Zimmerverwaltung", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     ((Student)getMainFrame().getCurrentUser()).forgetRoom(searchedRoom);
                 }
+
+                EventDispatcher.getInstance().dispatch(EventTargets.EET_DATATABLE, room);
 
             }
 

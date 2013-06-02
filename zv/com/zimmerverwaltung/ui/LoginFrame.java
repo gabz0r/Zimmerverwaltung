@@ -56,6 +56,8 @@ public class LoginFrame extends JFrame {
 
         pack();
 
+
+
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         /**

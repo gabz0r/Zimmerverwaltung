@@ -2,6 +2,10 @@ package com.zimmerverwaltung.users.extended;
 
 import com.zimmerverwaltung.roles.*;
 import com.zimmerverwaltung.storage.container.*;
+import com.zimmerverwaltung.storage.handler.DataHandler;
+import com.zimmerverwaltung.ui.dispatcher.DispatcherObject;
+import com.zimmerverwaltung.ui.dispatcher.EventDispatcher;
+import com.zimmerverwaltung.ui.dispatcher.EventTargets;
 import com.zimmerverwaltung.users.*;
 
 import java.util.ArrayList;
@@ -25,6 +29,10 @@ public class Student extends User implements IRoleStudent {
     public Student(String line) {
         super(line.split(";")[3], line.split(";")[4]);
         watchList = new ArrayList<Room>();
+
+        if(line.split(";").length > 5) {
+            watchList.addAll(DataHandler.getRoomsByIdTags(line.split(";")[5]));
+        }
     }
 
     /**
@@ -52,6 +60,10 @@ public class Student extends User implements IRoleStudent {
      */
     public boolean remembersRoom(Room r) {
         return watchList.contains(r);
+    }
+
+    public ArrayList<Room> getWatchList() {
+        return watchList;
     }
 
     @Override

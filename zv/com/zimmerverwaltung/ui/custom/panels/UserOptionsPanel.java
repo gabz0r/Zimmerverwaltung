@@ -8,6 +8,7 @@ import static com.zimmerverwaltung.ui.MainFrame.*;
 import com.zimmerverwaltung.ui.custom.roomtable.CustomTableModel;
 import com.zimmerverwaltung.ui.util.*;
 import com.zimmerverwaltung.users.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +32,12 @@ public class UserOptionsPanel<T extends User> extends JPanel {
 
     //Felder im Allgemeintab
     JButton logout;
+    JButton save;
+    JLabel userName;
+    JLabel firstName;
+    JLabel lastName;
+    JLabel role;
+    JButton changePwd;
 
     //Felder im Suchtab
     JTextField distance;
@@ -149,7 +156,37 @@ public class UserOptionsPanel<T extends User> extends JPanel {
             }
         });
 
+        save = new JButton("Änderungen speichern");
+        save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DataHandler.writeAllData();
+            }
+        });
+
+        userName = new JLabel("Benutzername: " + getMainFrame().getCurrentUser().getUserName());
+        firstName = new JLabel("Vorname: " + getMainFrame().getCurrentUser().getFirstName());
+        lastName = new JLabel("Nachname: " + getMainFrame().getCurrentUser().getLastName());
+        role = new JLabel("Rolle: " + getMainFrame().getCurrentUser().getRoleName());
+
+        changePwd = new JButton("Passwort ändern");
+        changePwd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Implement password change functionality
+                throw new NotImplementedException();
+            }
+        });
+
         generalOptions.add(logout);
+        generalOptions.add(save);
+        generalOptions.add(userName);
+        generalOptions.add(firstName);
+        generalOptions.add(lastName);
+        generalOptions.add(role);
+        generalOptions.add(changePwd);
+
+        SpringUtilities.makeCompactGrid(generalOptions, 7, 1, 10, 10, 5, 5);
     }
 
     private boolean validateTextFields() {

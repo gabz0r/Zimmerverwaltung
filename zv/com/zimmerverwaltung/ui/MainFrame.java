@@ -1,5 +1,6 @@
 package com.zimmerverwaltung.ui;
 
+import com.zimmerverwaltung.storage.container.Room;
 import com.zimmerverwaltung.storage.handler.*;
 import com.zimmerverwaltung.storage.io.*;
 import com.zimmerverwaltung.ui.custom.panels.RoomInfoPanel;
@@ -8,6 +9,8 @@ import com.zimmerverwaltung.ui.custom.roomtable.CustomMouseAdapter;
 import com.zimmerverwaltung.ui.custom.roomtable.CustomTable;
 import com.zimmerverwaltung.ui.custom.roomtable.CustomTableModel;
 import com.zimmerverwaltung.ui.custom.roomtable.CustomTableRenderer;
+import com.zimmerverwaltung.ui.dispatcher.EventDispatcher;
+import com.zimmerverwaltung.ui.dispatcher.EventTargets;
 import com.zimmerverwaltung.users.*;
 import com.zimmerverwaltung.users.extended.*;
 
@@ -70,6 +73,16 @@ public class MainFrame extends JFrame {
                     case JOptionPane.CANCEL_OPTION: {
                         break;
                     }
+                }
+            }
+        });
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+                for(Room r : ((Student)getCurrentUser()).getWatchList()) {
+                    EventDispatcher.getInstance().dispatch(EventTargets.EET_DATATABLE, r);
                 }
             }
         });

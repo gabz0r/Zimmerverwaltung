@@ -72,11 +72,12 @@ public class RoomInfoPanel extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         if(o instanceof EventDispatcher) {
             DispatcherObject disp = (DispatcherObject)arg;
-            Room selectedRoom = (Room)disp.getContent();
+            if(disp.getTarget() == EventTargets.EET_INFOPANEL) {
+                Room selectedRoom = (Room)disp.getContent();
+                currentRoom = selectedRoom;
 
-            currentRoom = selectedRoom;
-
-            updateCurrentRoom(selectedRoom);
+                updateCurrentRoom(selectedRoom);
+            }
         }
     }
 
