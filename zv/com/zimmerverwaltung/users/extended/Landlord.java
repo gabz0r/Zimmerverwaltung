@@ -18,7 +18,7 @@ import com.zimmerverwaltung.users.*;
  */
 public class Landlord extends User implements IRoleLandlord {
     public Landlord(String line) {
-        super(line.split(";")[3], line.split(";")[4]);
+        super(line.split(";")[0], line.split(";")[1], line.split(";")[3], line.split(";")[4]);
     }
 
     @Override

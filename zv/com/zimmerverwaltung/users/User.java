@@ -8,6 +8,7 @@ package com.zimmerverwaltung.users;
  * To change this template use File | Settings | File Templates.
  */
 
+import com.zimmerverwaltung.storage.handler.DataHandler;
 import com.zimmerverwaltung.ui.LoginFrame;
 import com.zimmerverwaltung.ui.MainFrame;
 import com.zimmerverwaltung.users.extended.Employee;
@@ -32,7 +33,9 @@ public abstract class User {
     protected String userName;
     protected String password;
 
-    public User(String userName, String password) {
+    public User(String firstName, String lastName, String userName, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.userName = userName;
         this.password = password;
     }
@@ -85,6 +88,11 @@ public abstract class User {
         else {
             return new Student(line);
         }
+    }
+
+    public void changePassword(String newPwd) {
+        this.setPassword(newPwd);
+        DataHandler.writeAllData();
     }
 
     public abstract String getRoleName();

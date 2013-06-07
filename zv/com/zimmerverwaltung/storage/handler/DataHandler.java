@@ -2,6 +2,7 @@ package com.zimmerverwaltung.storage.handler;
 
 import com.zimmerverwaltung.storage.container.*;
 import com.zimmerverwaltung.storage.io.CsvIO;
+import com.zimmerverwaltung.storage.io.UserFileProperty;
 import com.zimmerverwaltung.ui.MainFrame;
 import com.zimmerverwaltung.users.*;
 import com.zimmerverwaltung.users.extended.Student;
@@ -262,6 +263,7 @@ public class DataHandler {
      * Speichert alle Daten, die in den Containern aufgenommen wurden
      */
     public static void writeAllData() {
+        CsvIO.updateUserDataFile(MainFrame.getMainFrame().getCurrentUser(), UserFileProperty.EUP_PASSWORD);
         CsvIO.appendRoomsToUser(MainFrame.getMainFrame().getCurrentUser(), ((Student)MainFrame.getMainFrame().getCurrentUser()).getWatchList());
     }
 

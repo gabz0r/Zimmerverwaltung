@@ -1,7 +1,8 @@
 package com.zimmerverwaltung.ui.custom.panels;
 
+import com.zimmerverwaltung.ui.util.CustomPanel;
+
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.image.*;
 import java.awt.*;
 import java.io.File;
@@ -14,7 +15,7 @@ import java.io.IOException;
  * Time: 11:18
  * To change this template use File | Settings | File Templates.
  */
-public class ImageViewerPanel extends JPanel {
+public class ImageViewerPanel extends CustomPanel {
     private BufferedImage img;
 
     public ImageViewerPanel(String path) {

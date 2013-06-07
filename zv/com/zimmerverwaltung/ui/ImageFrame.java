@@ -1,6 +1,7 @@
 package com.zimmerverwaltung.ui;
 
 import com.zimmerverwaltung.ui.custom.panels.*;
+import com.zimmerverwaltung.ui.util.CustomFrame;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -13,7 +14,7 @@ import java.awt.event.WindowEvent;
  * Time: 11:07
  * To change this template use File | Settings | File Templates.
  */
-public class ImageFrame extends JFrame {
+public class ImageFrame extends CustomFrame {
     private static ImageFrame instance;
     private ImageViewerPanel panel;
 
@@ -44,14 +45,17 @@ public class ImageFrame extends JFrame {
         return instance;
     }
 
-    public void close() {
-        this.setVisible(false);
-        this.dispose();
-        ImageFrame.setNull();
-    }
+
 
     public ImageViewerPanel getPanel() {
         return panel;
+    }
+
+
+    public void close() {
+        this.setVisible(false);
+        this.dispose();
+        this.setNull();
     }
 
     public static void setNull() {

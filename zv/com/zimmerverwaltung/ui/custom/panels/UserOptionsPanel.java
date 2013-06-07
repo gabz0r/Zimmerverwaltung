@@ -5,10 +5,10 @@ import com.zimmerverwaltung.storage.handler.*;
 import com.zimmerverwaltung.storage.io.*;
 import static com.zimmerverwaltung.ui.MainFrame.*;
 
+import com.zimmerverwaltung.ui.PasswordChangeFrame;
 import com.zimmerverwaltung.ui.custom.roomtable.CustomTableModel;
 import com.zimmerverwaltung.ui.util.*;
 import com.zimmerverwaltung.users.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +22,7 @@ import java.util.*;
  * Time: 13:39
  * To change this template use File | Settings | File Templates.
  */
-public class UserOptionsPanel<T extends User> extends JPanel {
+public class UserOptionsPanel<T extends User> extends CustomPanel {
     private JLabel currentRole;
     JTabbedPane optionsPane;
 
@@ -173,8 +173,7 @@ public class UserOptionsPanel<T extends User> extends JPanel {
         changePwd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Implement password change functionality
-                throw new NotImplementedException();
+                PasswordChangeFrame pwc = PasswordChangeFrame.getPasswordChangeFrame();
             }
         });
 
@@ -186,7 +185,7 @@ public class UserOptionsPanel<T extends User> extends JPanel {
         generalOptions.add(role);
         generalOptions.add(changePwd);
 
-        SpringUtilities.makeCompactGrid(generalOptions, 7, 1, 10, 10, 5, 5);
+        SpringUtilities.makeCompactGrid(generalOptions, 7, 1, 10, 10, 5, 9);
     }
 
     private boolean validateTextFields() {

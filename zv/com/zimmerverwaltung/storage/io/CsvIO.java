@@ -138,4 +138,41 @@ public class CsvIO {
           catch (IOException e)             { return false; }
     }
 
+    public static boolean updateUserDataFile(User u, UserFileProperty up) {
+
+        ArrayList<String> allLines = readRelevantLines("zimmer_verg_login.csv");
+        ArrayList<String> newLines = new ArrayList<String>();
+
+
+
+        switch(up) {
+            case EUP_PASSWORD: {
+                for(String l : allLines) {
+                    if(l.split(";")[3].equals(u.getUserName())) {
+                        l = l.split(";")[0] + ";" + l.split(";")[1] + ";" + l.split(";")[2] + ";" + l.split(";")[3] + ";" + u.getPassword();
+                    }
+
+                    newLines.add(l);
+                }
+                break;
+            }
+        }
+
+        try {
+            new File("zimmer_verg_login.csv").delete();
+            PrintWriter outw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("zimmer_verg_login.csv"), "ISO-8859-1"));
+
+            for(String l : newLines) {
+                outw.println(l);
+            }
+
+            outw.flush();
+            outw.close();
+
+            return true;
+        } catch (FileNotFoundException e) { return false; }
+          catch (IOException e)           { return false; }
+
+    }
+
 }

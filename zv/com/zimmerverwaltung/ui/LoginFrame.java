@@ -1,6 +1,7 @@
 package com.zimmerverwaltung.ui;
 
 import com.zimmerverwaltung.storage.handler.DataHandler;
+import com.zimmerverwaltung.ui.util.CustomFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +19,7 @@ import java.awt.event.ActionListener;
  * LoginFrame stellt das Login - Fenster dar
  * Es gibt zwei Textfelder und einen Button, der die Daten überprüft
  */
-public class LoginFrame extends JFrame {
+public class LoginFrame extends CustomFrame {
     private JTextField userName;
     private JPasswordField password;
 

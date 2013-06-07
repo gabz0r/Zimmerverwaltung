@@ -11,6 +11,8 @@ import com.zimmerverwaltung.ui.custom.roomtable.CustomTableModel;
 import com.zimmerverwaltung.ui.custom.roomtable.CustomTableRenderer;
 import com.zimmerverwaltung.ui.dispatcher.EventDispatcher;
 import com.zimmerverwaltung.ui.dispatcher.EventTargets;
+import com.zimmerverwaltung.ui.util.CustomFrame;
+import com.zimmerverwaltung.ui.util.CustomPanel;
 import com.zimmerverwaltung.users.*;
 import com.zimmerverwaltung.users.extended.*;
 
@@ -26,10 +28,10 @@ import java.awt.event.*;
  * Time: 12:47
  * To change this template use File | Settings | File Templates.
  */
-public class MainFrame extends JFrame {
+public class MainFrame extends CustomFrame {
     private User currentUser;
-    private JPanel topWrapper;
-    private JPanel bottomWrapper;
+    private CustomPanel topWrapper;
+    private CustomPanel bottomWrapper;
 
     CustomTableModel model;
     CustomTable grid;
@@ -48,10 +50,10 @@ public class MainFrame extends JFrame {
     public void initUI() {
         this.setLayout(new GridLayout(2, 1));
 
-        topWrapper = new JPanel(new GridLayout(1, 1, 10, 10));
+        topWrapper = new CustomPanel(new GridLayout(1, 1, 10, 10));
         getContentPane().add(topWrapper);
 
-        bottomWrapper = new JPanel(new GridLayout(1, 2, 10, 10));
+        bottomWrapper = new CustomPanel(new GridLayout(1, 2, 10, 10));
         getContentPane().add(bottomWrapper);
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);

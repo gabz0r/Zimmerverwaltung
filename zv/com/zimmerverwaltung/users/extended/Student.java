@@ -27,7 +27,7 @@ public class Student extends User implements IRoleStudent {
     private ArrayList<Room> watchList;
 
     public Student(String line) {
-        super(line.split(";")[3], line.split(";")[4]);
+        super(line.split(";")[0], line.split(";")[1], line.split(";")[3], line.split(";")[4]);
         watchList = new ArrayList<Room>();
 
         if(line.split(";").length > 5) {

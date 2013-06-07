@@ -1,17 +1,13 @@
 package com.zimmerverwaltung.ui.custom.panels;
 
 import com.zimmerverwaltung.storage.container.*;
-import com.zimmerverwaltung.ui.ImageFrame;
+import com.zimmerverwaltung.ui.*;
 import com.zimmerverwaltung.ui.dispatcher.*;
-import com.zimmerverwaltung.users.extended.*;
+import com.zimmerverwaltung.ui.util.*;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.*;
-
-import static com.zimmerverwaltung.ui.MainFrame.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,7 +16,7 @@ import static com.zimmerverwaltung.ui.MainFrame.*;
  * Time: 10:47
  * To change this template use File | Settings | File Templates.
  */
-public class RoomInfoPanel extends JPanel implements Observer {
+public class RoomInfoPanel extends CustomPanel implements Observer {
     JLabel description;
     JLabel landlord;
     JLabel street;
@@ -36,15 +32,15 @@ public class RoomInfoPanel extends JPanel implements Observer {
         super();
         EventDispatcher.getInstance().registerObserver(this);
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new SpringLayout());
 
-        description = new JLabel("Beschreibung:"); description.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
-        landlord = new JLabel("Vermieter:"); landlord.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
-        street = new JLabel("Straße:"); street.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
-        location = new JLabel("Ort:"); location.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
-        fees = new JLabel("Mietkosten:"); fees.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
-        distance = new JLabel("Entfernung DH:"); distance.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
-        qm = new JLabel("Fläche:"); qm.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+        description = new JLabel("Beschreibung:"); //description.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+        landlord = new JLabel("Vermieter:"); //landlord.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+        street = new JLabel("Straße:"); //street.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+        location = new JLabel("Ort:"); //location.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+        fees = new JLabel("Mietkosten:"); //fees.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+        distance = new JLabel("Entfernung DH:"); //distance.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+        qm = new JLabel("Fläche:"); //qm.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
         watchImg = new JButton("Bild anschauen");
         watchImg.setEnabled(false);
 
@@ -66,6 +62,8 @@ public class RoomInfoPanel extends JPanel implements Observer {
         this.add(distance);
         this.add(qm);
         this.add(watchImg);
+
+        SpringUtilities.makeCompactGrid(this, 8, 1, 10, 10, 10, 10);
     }
 
     @Override
