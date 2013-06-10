@@ -15,9 +15,17 @@ import java.io.IOException;
  * Time: 11:18
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * Panel für die Bildvorschau
+ */
 public class ImageViewerPanel extends CustomPanel {
     private BufferedImage img;
 
+    /**
+     * Konstruktor liest die Bilddatei aus und weißt sie dem BufferedImage zu
+     * @param path
+     */
     public ImageViewerPanel(String path) {
         try {
             img = ImageIO.read(new File(path));
@@ -27,6 +35,10 @@ public class ImageViewerPanel extends CustomPanel {
         }
     }
 
+    /**
+     * Override lässt das Bild zeichnen
+     * @param g Graphics - Objekt, mit dem gezeichnet wird
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

@@ -137,7 +137,9 @@ public class MainFrame extends CustomFrame {
     }
 
     /**
-     * Schließt das Fenster, die Anwendung läuft jedoch weiter
+     * Schließt das Fenster
+     * Unsichtbar -> Dispose -> Singleton - Instanz null setzen
+     * Die Anwendung läuft allerdings weiter
      */
     public void close() {
         this.setVisible(false);
@@ -180,6 +182,9 @@ public class MainFrame extends CustomFrame {
         return instance;
     }
 
+    /**
+     * Setzt die Singleton - Instanz null
+     */
     public static void setNull() {
         instance = null;
     }

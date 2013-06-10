@@ -10,7 +10,15 @@ import javax.swing.table.*;
  * Time: 10:08
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * Eigene Datentabellenklasse, enthält leicht erweiterte Funktionalität
+ */
 public class CustomTable extends JTable {
+    /**
+     * Konstruktor ruft super auf und formatiert Spalten
+     * @param model Das Datenmodell, welches der Tabelle zugrundeliegt
+     */
     public CustomTable(AbstractTableModel model) {
         super(model);
 
@@ -19,6 +27,10 @@ public class CustomTable extends JTable {
         getTableHeader().setReorderingAllowed(false);
     }
 
+    /**
+     * Versteckt die spezifizierten Spalten
+     * @param columns Die Spaltennamen in einem Array
+     */
     public void hideColumns(String[] columns) {
         for(String c : columns) {
             this.getColumn(c).setWidth(0);

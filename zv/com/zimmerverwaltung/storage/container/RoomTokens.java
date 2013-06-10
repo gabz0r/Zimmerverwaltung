@@ -7,6 +7,10 @@ package com.zimmerverwaltung.storage.container;
  * Time: 10:27
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * Klasse hält Tokens für einen Suchvorgang
+ */
 public class RoomTokens {
     private String distance;
     private String fees;

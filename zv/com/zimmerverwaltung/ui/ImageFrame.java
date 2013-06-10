@@ -14,14 +14,27 @@ import java.awt.event.WindowEvent;
  * Time: 11:07
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * Framecontainer für das ImageViewerPanel
+ * dient zur Bildbetrachtung für Zimmer, bei denen Bilder hinterlegt sind
+ */
 public class ImageFrame extends CustomFrame {
     private static ImageFrame instance;
     private ImageViewerPanel panel;
 
+    /**
+     * Initialisiert das UI mit dem Bildpfad
+     * @param path Bildpfad
+     */
     private ImageFrame(String path) {
         initUI(path);
     }
 
+    /**
+     * Initialisiert das UI
+     * @param path Bildpfad
+     */
     private void initUI(String path) {
         panel = new ImageViewerPanel(path);
         this.add(panel);
@@ -36,6 +49,11 @@ public class ImageFrame extends CustomFrame {
         });
     }
 
+    /**
+     * Singleton
+     * @param imgPath Bildpfad
+     * @return gibt die Singleton - Instanz zurück
+     */
     public static ImageFrame getImageFrame(String imgPath) {
         if(instance == null) {
             instance = new ImageFrame(imgPath);
@@ -51,13 +69,19 @@ public class ImageFrame extends CustomFrame {
         return panel;
     }
 
-
+    /**
+     * Schließt das Fenster
+     * Unsichtbar -> Dispose -> Singleton - Instanz null setzen
+     */
     public void close() {
         this.setVisible(false);
         this.dispose();
         this.setNull();
     }
 
+    /**
+     * Setzt die Singleton - Instanz null
+     */
     public static void setNull() {
         instance = null;
     }

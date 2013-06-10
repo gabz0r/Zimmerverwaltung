@@ -7,6 +7,10 @@ package com.zimmerverwaltung.ui.dispatcher;
  * Time: 11:05
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * Enum zur Identifikation eines Ziels für den Dispatcher
+ */
 public enum EventTargets {
     EET_INFOPANEL,
     EET_DATATABLE

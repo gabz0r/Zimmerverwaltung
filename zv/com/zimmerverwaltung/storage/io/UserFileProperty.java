@@ -7,6 +7,11 @@ package com.zimmerverwaltung.storage.io;
  * Time: 11:56
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * Gibt für CsvIO an, welche Eigenschaft geändert werden soll
+ * @see CsvIO#updateUserDataFile(com.zimmerverwaltung.users.User, UserFileProperty)
+ */
 public enum UserFileProperty {
     EUP_PASSWORD
 }

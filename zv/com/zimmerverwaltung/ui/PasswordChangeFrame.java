@@ -13,22 +13,44 @@ import com.zimmerverwaltung.ui.util.CustomFrame;
 public class PasswordChangeFrame extends CustomFrame {
 	private PasswordChangePanel content;
 
+    /**
+     * Konstruktor
+     * Initialisiert das UI
+     */
 	private PasswordChangeFrame() {
-
+        initUI();
 	}
 
+    /**
+     * Initialisiert das UI
+     */
     private void initUI() {
         content = new PasswordChangePanel();
         getContentPane().add(content);
     }
 
+    /**
+     * Schließt das Fenster
+     * Unsichtbar -> Dispose -> Singleton - Instanz null setzen
+     */
 	@Override
 	public void close() {
         instance = null;
-		setVisible(false);
-		dispose();
+		this.setVisible(false);
+		this.dispose();
+        this.setNull();
 	}
 
+    /**
+     * Setzt die Singleton - Instanz null
+     */
+    public static void setNull() {
+        instance = null;
+    }
+
+    /**
+     * Singleton für das PasswordChangeFrame
+     */
 	private static PasswordChangeFrame instance;
     public static PasswordChangeFrame getPasswordChangeFrame() {
 	    if(instance == null) {
@@ -37,7 +59,6 @@ public class PasswordChangeFrame extends CustomFrame {
             instance.setBounds(20, 20, 375, 150);
             instance.setTitle("Passwort ändern");
             instance.setVisible(true);
-            instance.initUI();
         }
 
         return instance;

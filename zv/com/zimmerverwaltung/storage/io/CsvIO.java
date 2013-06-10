@@ -10,7 +10,7 @@ import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Gabriel
+ * User: Penis
  * Date: 29.04.13
  * Time: 09:01
  * To change this template use File | Settings | File Templates.
@@ -101,6 +101,12 @@ public class CsvIO {
         }
     }
 
+    /**
+     * Schreibt die IDs der gemerkten Räume in die CSV - Datei
+     * @param u Benutzer, an den die Zimmer angehängt werden sollen
+     * @param rs Die Liste der gemerkten Zimmer
+     * @return true / false, je nach dem Rollback
+     */
     public static boolean appendRoomsToUser(User u, ArrayList<Room> rs) {
         try {
             ArrayList<String> allLines = readRelevantLines("zimmer_verg_login.csv");
@@ -138,6 +144,13 @@ public class CsvIO {
           catch (IOException e)             { return false; }
     }
 
+    /**
+     * Wird generell dazu verwendet, eine gewisse Eigenschaft eines Benutzers in der Datei zu ändern
+     * @param u Benutzer, dessen Eigenschaften geändert werden
+     * @param up ID der Eigenschaft, die geändert werden soll
+     * @see UserFileProperty
+     * @return true / false, je nach dem Rollback
+     */
     public static boolean updateUserDataFile(User u, UserFileProperty up) {
 
         ArrayList<String> allLines = readRelevantLines("zimmer_verg_login.csv");

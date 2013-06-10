@@ -22,6 +22,11 @@ import java.util.*;
  * Time: 13:39
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * Panel enthält Komponenten, die den Operationen entsprechen, die ein aktueller Benutzer entsprechend seiner Rolle ausführen kann
+ * @param <T> Typ des aktuellen Benutzers
+ */
 public class UserOptionsPanel<T extends User> extends CustomPanel {
     private JLabel currentRole;
     JTabbedPane optionsPane;
@@ -49,6 +54,10 @@ public class UserOptionsPanel<T extends User> extends CustomPanel {
 
     private T currentUser;
 
+    /**
+     * Konstruktor initalisiert die UI passend zum aktuellen Benutzer
+     * @param currentUser Der aktuelle Benutzer
+     */
     public UserOptionsPanel(T currentUser) {
         setLayout(new BorderLayout());
 
@@ -143,6 +152,9 @@ public class UserOptionsPanel<T extends User> extends CustomPanel {
         SpringUtilities.makeCompactGrid(searchOptions,6, 2, 10, 10, 5, 5);
     }
 
+    /**
+     * General beinhaltet allgemeine Operationen, die für alle Benutzer gleich sind
+     */
     private void setupGeneralTab() {
         generalOptions.setLayout(new SpringLayout());
 
@@ -188,6 +200,10 @@ public class UserOptionsPanel<T extends User> extends CustomPanel {
         SpringUtilities.makeCompactGrid(generalOptions, 7, 1, 10, 10, 5, 9);
     }
 
+    /**
+     * Validiert die Eingaben in den Suchfeldern
+     * @return true / false, je nach dem
+     */
     private boolean validateTextFields() {
         try {
             if(!distance.getText().equals("")) {

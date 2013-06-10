@@ -21,6 +21,9 @@ public class DataHandler {
     private static ArrayList<Room> rooms;
     private static ArrayList<User> users;
 
+    /**
+     * Initialisiert die ArrayList für Zimmer und Benutzer
+     */
     public static void initContainers() {
         rooms = new ArrayList<Room>();
         users = new ArrayList<User>();
@@ -30,6 +33,7 @@ public class DataHandler {
      * Fügt einen Eintrag in die Liste hinzu
      * @param line Zeile im CSV - Format
      * @param type Typ nach enum ZvwDataType
+     * @see ZvwDataType
      */
     public static void addCsvEntry(String line, ZvwDataType type) {
         String[] keys = line.split(";");
@@ -55,6 +59,7 @@ public class DataHandler {
      * Fügt ein ResultSet einer Datenbankabfrage der Liste hinzu
      * @param rss Das ResultSet der Abfrage
      * @param type Der Typ der Daten
+     * @see ZvwDataType
      */
     public static void addFromDb(ResultSet rss, ZvwDataType type) {
         try {
@@ -85,6 +90,7 @@ public class DataHandler {
      * Suchfunktion nach einen bestimmten Attribut
      * @param token Suchattribut
      * @param keyType Typ des Suchattributs
+     * @see SearchType
      * @return Alle passenden Ergebnisse
      */
     public static ArrayList<Room> searchRoom(String token, SearchType keyType) {
@@ -143,6 +149,7 @@ public class DataHandler {
      * Suchfunktion nach einen bestimmten Attribut im mitgegebnem Container
      * @param token Suchattribut
      * @param keyType Typ des Suchattributs
+     * @see SearchType
      * @param searchContainer container, in dem gesucht werden soll
      * @return Alle passenden Ergebnisse
      */
@@ -270,6 +277,7 @@ public class DataHandler {
     /**
      * Mapt die gelesenen Daten in ein Format, dass die JTable versteht (2D - Array)
      * @param type Welcher Container gemappt werden soll
+     * @see ZvwDataType
      * @return Den Container in Array - Darstellung
      */
     public static String[][] mapToStringArray(ZvwDataType type) {
@@ -368,17 +376,18 @@ public class DataHandler {
         }
         if(!tokens.getStreet().equals("")) {
             resList = searchRoom(tokens.getStreet(), SearchType.EST_STREET, resList);
-}
+        }
 
-return resList;
+        return resList;
 
-}
+    }
 
-/**
- *
- * @param tags
- * @return
- */
+    /**
+     * Liefert die Räume anhand von "-" getrennten IDs aus der Benutzerdatei
+     * Dient zur Speicherung von Räumen, die ein Student beobachtet
+     * @param tags Die ID - Tags, die aus der login - csv ausgelesen wurden
+     * @return Eine ArrayList, die die Zimmer enthält, die der jeweilige Student beobachtet
+     */
     public static ArrayList<Room> getRoomsByIdTags(String tags) {
         String[] t = tags.split("-");
         ArrayList<Room> ret = new ArrayList<Room>();

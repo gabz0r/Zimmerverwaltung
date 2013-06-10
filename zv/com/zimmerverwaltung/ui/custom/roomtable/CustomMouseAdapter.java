@@ -17,6 +17,13 @@ import static com.zimmerverwaltung.ui.MainFrame.*;
  * Time: 10:04
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * Maushandler für die Datentabelle
+ * Unterscheidet Einzel / Doppelklick auf und handelt dementsprechend
+ * Einfachklick: Dispatcher wird mit Ziel EET_INFOPANEL aufgerufen, Parameter ist der selektierte Raum -> update am Infopanel (Details anzeigen)
+ * Doppelklick: Dispatcher wird mit Ziel EET_DATATABLE aufgerufen, Parameter ist der selektierte Raum -> update am Datatable (Raum merken)
+ */
 public class CustomMouseAdapter extends MouseAdapter {
     @Override
     public void mouseClicked(MouseEvent e) {

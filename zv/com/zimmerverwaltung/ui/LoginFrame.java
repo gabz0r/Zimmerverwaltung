@@ -96,12 +96,19 @@ public class LoginFrame extends CustomFrame {
         return instance;
     }
 
+    /**
+     * Schließt das Fenster
+     * Unsichtbar -> Dispose -> Singleton - Instanz null setzen
+     */
     public void close() {
         this.setVisible(false);
         this.dispose();
         LoginFrame.setNull();
     }
 
+    /**
+     * Setzt die Singleton - Instanz null
+     */
     public static void setNull() {
         instance = null;
     }

@@ -10,6 +10,10 @@ import java.awt.*;
  * Time: 12:30
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * Erweitert JPanel um die Methode setFrameContainer
+ */
 public class CustomPanel extends JPanel {
     protected JFrame frameContainer;
 
@@ -21,6 +25,11 @@ public class CustomPanel extends JPanel {
         super(lmgr);
     }
 
+    /**
+     * Macht das Frame bekannt, welches das Panel enthält
+     * @deprecated Selbe Funktionalität über SwingUtilities.getRoot(this)
+     * @param container Das RootFrame
+     */
     public void setFrameContainer(JFrame container) {
         this.frameContainer = container;
     }

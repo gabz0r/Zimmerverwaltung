@@ -16,6 +16,10 @@ import java.util.*;
  * Time: 10:47
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * Panel zeigt die Daten des gerade selektierten Raums an
+ */
 public class RoomInfoPanel extends CustomPanel implements Observer {
     JLabel description;
     JLabel landlord;
@@ -28,6 +32,9 @@ public class RoomInfoPanel extends CustomPanel implements Observer {
 
     Room currentRoom;
 
+    /**
+     * Konstruktor initalisiert das UI
+     */
     public RoomInfoPanel() {
         super();
         EventDispatcher.getInstance().registerObserver(this);
@@ -66,6 +73,12 @@ public class RoomInfoPanel extends CustomPanel implements Observer {
         SpringUtilities.makeCompactGrid(this, 8, 1, 10, 10, 10, 10);
     }
 
+    /**
+     * Override für das Observer - Interface
+     * @param o
+     * @param arg Die Dispatcher - Parameter
+     * @see DispatcherObject
+     */
     @Override
     public void update(Observable o, Object arg) {
         if(o instanceof EventDispatcher) {

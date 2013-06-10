@@ -9,6 +9,10 @@ import javax.swing.*;
  * Time: 12:34
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * Erweitert JFrame um die abstrakte Methode close()
+ */
 public abstract class CustomFrame extends JFrame {
     public CustomFrame() {
         super();

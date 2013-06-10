@@ -20,8 +20,18 @@ import java.util.Observer;
  * Time: 09:56
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * Das Benutzerdefinierte Datenmodell
+ * Erweitert DefaultTableModel und implementiert Observer (für den Merkvorgang der Rolle "Student")
+ */
 public class CustomTableModel extends DefaultTableModel  implements Observer {
 
+    /**
+     * Konstruktor initalisiert die Daten und registriet das Objekt am Dispatcher
+     * @param data Daten
+     * @param header Spaltennamen
+     */
     public CustomTableModel(String[][] data, String[] header) {
         super(data, header);
         this.addColumn("Gemerkt");
@@ -34,6 +44,13 @@ public class CustomTableModel extends DefaultTableModel  implements Observer {
         return false;
     }
 
+    /**
+     * Override update
+     * Setzt die Werte in der Spalte "Gemerkt" je nach dem, ob der Benutzer den Raum merkt oder nicht
+     * @param o
+     * @param arg Dispatcherparameter
+     * @see DispatcherObject
+     */
     @Override
     public void update(Observable o, Object arg) {
         if(o instanceof EventDispatcher) {

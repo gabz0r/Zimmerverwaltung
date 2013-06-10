@@ -24,6 +24,18 @@ public class Room {
     private float qm;
     private String imgPath;
 
+    /**
+     * Konstruktor für Zimmer mit Bildangabe
+     * @param description Raumbeschreibung
+     * @param landlord Vermieter
+     * @param street Straße, Hausnummer [Straße Hausnr]
+     * @param location Ortschaft
+     * @param fees Miete
+     * @param distance Entfernung zur DH
+     * @param qm Wohnfläche
+     * @param imgPath Pfad zum Bild (Vorschau)
+     * @param id ID des Zimmers
+     */
     public Room(String description, String landlord, String street, String location, String fees, String distance, float qm, String imgPath, int id) {
         this.id = id;
         this.description = description;
@@ -36,6 +48,17 @@ public class Room {
         this.imgPath = imgPath;
     }
 
+    /**
+     * Konstruktor für Zimmer ohne Bildangabe
+     * @param description Raumbeschreibung
+     * @param landlord Vermieter
+     * @param street Straße, Hausnummer [Straße Hausnr]
+     * @param location Ortschaft
+     * @param fees Miete
+     * @param distance Entfernung zur DH
+     * @param qm Wohnfläche
+     * @param id ID des Zimmers
+     */
     public Room(String description, String landlord, String street, String location, String fees, String distance, float qm, int id) {
         this.id = id;
         this.description = description;
@@ -120,6 +143,11 @@ public class Room {
         this.qm = qm;
     }
 
+    /**
+     * Vergleich über ID
+     * @param o Anderes Room - Objekt
+     * @return True / False
+     */
     @Override
     public boolean equals(Object o) {
         if(((Room) o).getId() == getId()) {
@@ -128,6 +156,11 @@ public class Room {
         return false;
     }
 
+    /**
+     * Override für Vergleichsfunktionen
+     * Ruft die Funktion aus super auf
+     * @return
+     */
     @Override
     public int hashCode() {
         return super.hashCode();

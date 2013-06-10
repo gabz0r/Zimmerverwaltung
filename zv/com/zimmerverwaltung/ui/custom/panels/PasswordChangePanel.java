@@ -16,6 +16,10 @@ import java.awt.event.ActionListener;
  * Time: 10:55
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ * Panel für die Passwort - ändern Funktionalität
+ */
 public class PasswordChangePanel extends CustomPanel {
     private JLabel newPwdLabel;
     private JTextField newPwd;
@@ -25,6 +29,9 @@ public class PasswordChangePanel extends CustomPanel {
 
     private JButton changePwd;
 
+    /**
+     * Konstruktor initialisiert die Benutzeroberfläche
+     */
     public PasswordChangePanel() {
         newPwdLabel = new JLabel("Neues Passwort", JLabel.TRAILING);
         newPwd = new JTextField(10);
@@ -36,6 +43,9 @@ public class PasswordChangePanel extends CustomPanel {
         initUI();
     }
 
+    /**
+     * Legt das Layout an, verknüpft Events (-> Button)
+     */
     public void initUI() {
         this.setLayout(new SpringLayout());
 
@@ -68,6 +78,10 @@ public class PasswordChangePanel extends CustomPanel {
         SpringUtilities.makeCompactGrid(this, 3, 2, 10, 10, 10, 10);
     }
 
+    /**
+     * Schließt das Fenster
+     * -> Unsichtbar machen, Parentframe schließen
+     */
     public void close() {
         this.setVisible(false);
         CustomFrame cf = (CustomFrame) SwingUtilities.getRoot(this);
