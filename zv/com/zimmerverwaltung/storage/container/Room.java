@@ -1,16 +1,6 @@
 package com.zimmerverwaltung.storage.container;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gabriel
- * Date: 25.04.13
- * Time: 11:46
- * To change this template use File | Settings | File Templates.
- */
-
-/**
- * @author Gabriel
- * @version 0.1
  * Speichert ein Zimmer, das aus der CSV ausgelesen wird
  */
 public class Room {

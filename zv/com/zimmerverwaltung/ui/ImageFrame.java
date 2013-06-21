@@ -8,14 +8,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gabriel
- * Date: 21.05.13
- * Time: 11:07
- * To change this template use File | Settings | File Templates.
- */
-
-/**
  * Framecontainer für das ImageViewerPanel
  * dient zur Bildbetrachtung für Zimmer, bei denen Bilder hinterlegt sind
  */

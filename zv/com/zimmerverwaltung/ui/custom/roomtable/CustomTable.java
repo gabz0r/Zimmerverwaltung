@@ -4,14 +4,6 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gabriel
- * Date: 13.05.13
- * Time: 10:08
- * To change this template use File | Settings | File Templates.
- */
-
-/**
  * Eigene Datentabellenklasse, enthält leicht erweiterte Funktionalität
  */
 public class CustomTable extends JTable {
@@ -19,7 +11,7 @@ public class CustomTable extends JTable {
      * Konstruktor ruft super auf und formatiert Spalten
      * @param model Das Datenmodell, welches der Tabelle zugrundeliegt
      */
-    public CustomTable(AbstractTableModel model) {
+    public CustomTable(TableModel model) {
         super(model);
 
         this.getColumn("Gemerkt").setMaxWidth(60);

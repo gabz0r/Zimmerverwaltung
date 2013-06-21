@@ -8,38 +8,33 @@ import com.zimmerverwaltung.ui.custom.panels.UserOptionsPanel;
 import com.zimmerverwaltung.ui.custom.roomtable.CustomMouseAdapter;
 import com.zimmerverwaltung.ui.custom.roomtable.CustomTable;
 import com.zimmerverwaltung.ui.custom.roomtable.CustomTableModel;
-import com.zimmerverwaltung.ui.custom.roomtable.CustomTableRenderer;
 import com.zimmerverwaltung.ui.dispatcher.EventDispatcher;
 import com.zimmerverwaltung.ui.dispatcher.EventTargets;
 import com.zimmerverwaltung.ui.util.CustomFrame;
 import com.zimmerverwaltung.ui.util.CustomPanel;
 import com.zimmerverwaltung.users.*;
 import com.zimmerverwaltung.users.extended.*;
-
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.*;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gabriel
- * Date: 29.04.13
- * Time: 12:47
- * To change this template use File | Settings | File Templates.
+ * Hauptbenutzeroberfläche
  */
 public class MainFrame extends CustomFrame {
     private User currentUser;
     private CustomPanel topWrapper;
     private CustomPanel bottomWrapper;
 
-    CustomTableModel model;
-    CustomTable grid;
-    RoomInfoPanel infoPanel;
-    UserOptionsPanel optionsPanel;
+    private CustomTableModel model;
+    private CustomTable grid;
+    private RoomInfoPanel infoPanel;
+    private UserOptionsPanel optionsPanel;
 
-    CustomMouseAdapter mouseAdapter;
-    CustomTableRenderer tableRenderer;
+    private CustomMouseAdapter mouseAdapter;
+
+    private Room selectedRoom;
 
     private MainFrame() {
     }
@@ -82,9 +77,10 @@ public class MainFrame extends CustomFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-
-                for(Room r : ((Student)getCurrentUser()).getWatchList()) {
-                    EventDispatcher.getInstance().dispatch(EventTargets.EET_DATATABLE, r);
+                if(getMainFrame().getCurrentUser() instanceof Student) {
+                    for(Room r : ((Student)getCurrentUser()).getWatchList()) {
+                        EventDispatcher.getInstance().dispatch(EventTargets.EET_DATATABLE, r);
+                    }
                 }
             }
         });
@@ -99,14 +95,18 @@ public class MainFrame extends CustomFrame {
      */
     private void initDataGrid() {
         mouseAdapter = new CustomMouseAdapter();
-        tableRenderer = new CustomTableRenderer();
 
         model = new CustomTableModel(DataHandler.mapToStringArray(ZvwDataType.EDT_ROOM), CsvIO.getColumnNames(ZvwDataType.EDT_ROOM));
+
         grid = new CustomTable(model);
 
-        grid.hideColumns(new String[] { "id", "Bild" });
+        if(getMainFrame().getCurrentUser() instanceof Student) {
+            grid.hideColumns(new String[] { "id", "Bild" });
+        }
+        else {
+            grid.hideColumns(new String[] { "id", "Bild", "Gemerkt" });
+        }
 
-        grid.setDefaultRenderer(Object.class, tableRenderer);
         grid.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         grid.addMouseListener(mouseAdapter);
 
@@ -129,7 +129,16 @@ public class MainFrame extends CustomFrame {
      * Initialisiert die Groupbox, welche die Operationen bereitstellt
      */
     private void initOptionsPanel() {
-        optionsPanel = new UserOptionsPanel<Student>((Student)getMainFrame().getCurrentUser());
+        if(getMainFrame().getCurrentUser() instanceof Student) {
+            optionsPanel = new UserOptionsPanel<Student>((Student)getMainFrame().getCurrentUser());
+        }
+        else if(getMainFrame().getCurrentUser() instanceof Landlord) {
+            optionsPanel = new UserOptionsPanel<Landlord>((Landlord)getMainFrame().getCurrentUser());
+        }
+        else if(getMainFrame().getCurrentUser() instanceof Employee) {
+            optionsPanel = new UserOptionsPanel<Employee>((Employee)getMainFrame().getCurrentUser());
+        }
+
         TitledBorder groupBox = new TitledBorder("Bedienelemente");
         optionsPanel.setBorder(groupBox);
 
@@ -205,11 +214,15 @@ public class MainFrame extends CustomFrame {
         return infoPanel;
     }
 
-    public CustomTableRenderer getTableRenderer() {
-        return tableRenderer;
-    }
-
     public CustomMouseAdapter getMouseAdapter() {
         return mouseAdapter;
+    }
+
+    public Room getSelectedRoom() {
+        return selectedRoom;
+    }
+
+    public void setSelectedRoom(Room r) {
+        selectedRoom = r;
     }
 }

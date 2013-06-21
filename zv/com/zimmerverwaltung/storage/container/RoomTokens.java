@@ -1,14 +1,6 @@
 package com.zimmerverwaltung.storage.container;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gabriel
- * Date: 14.05.13
- * Time: 10:27
- * To change this template use File | Settings | File Templates.
- */
-
-/**
  * Klasse hält Tokens für einen Suchvorgang
  */
 public class RoomTokens {

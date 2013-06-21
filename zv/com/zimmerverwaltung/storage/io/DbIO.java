@@ -6,14 +6,6 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gabriel
- * Date: 29.04.13
- * Time: 09:30
- * To change this template use File | Settings | File Templates.
- */
-
-/**
  * Abstrahierte backend - Klasse für den Datenaustausch über eine Datenbank
  */
 public class DbIO {

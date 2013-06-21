@@ -3,36 +3,36 @@ package com.zimmerverwaltung.users.extended;
 import com.zimmerverwaltung.roles.*;
 import com.zimmerverwaltung.storage.container.*;
 import com.zimmerverwaltung.storage.handler.DataHandler;
-import com.zimmerverwaltung.ui.dispatcher.DispatcherObject;
-import com.zimmerverwaltung.ui.dispatcher.EventDispatcher;
-import com.zimmerverwaltung.ui.dispatcher.EventTargets;
 import com.zimmerverwaltung.users.*;
 
 import java.util.ArrayList;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gabriel
- * Date: 25.04.13
- * Time: 11:29
- * To change this template use File | Settings | File Templates.
- */
-
-/**
- * @author Gabriel
- * @version 0.1
  * Implementiert alle Rechte, die die Rolle "Student" bereitstellt
  */
 public class Student extends User implements IRoleStudent {
     private ArrayList<Room> watchList;
+    private int myRoomId;
 
     public Student(String line) {
         super(line.split(";")[0], line.split(";")[1], line.split(";")[3], line.split(";")[4]);
+        myRoomId = -1;
         watchList = new ArrayList<Room>();
 
         if(line.split(";").length > 5) {
-            watchList.addAll(DataHandler.getRoomsByIdTags(line.split(";")[5]));
+            if(line.split(";")[5].contains("-")) {
+                watchList.addAll(DataHandler.getRoomsByIdTags(line.split(";")[5]));
+            }
+            else {
+                myRoomId = Integer.valueOf(line.split(";")[5]);
+            }
+        } else if(line.split(";").length > 6) {
+            myRoomId = Integer.valueOf(line.split(";")[6]);
         }
+    }
+
+    public Student(String firstName, String lastName, String userName, String password) {
+        super(firstName, lastName, userName, password);
     }
 
     /**
@@ -69,5 +69,13 @@ public class Student extends User implements IRoleStudent {
     @Override
     public String getRoleName() {
         return "Student";
+    }
+
+    public int getMyRoomId() {
+        return myRoomId;
+    }
+
+    public void setMyRoomId(int myRoomId) {
+        this.myRoomId = myRoomId;
     }
 }

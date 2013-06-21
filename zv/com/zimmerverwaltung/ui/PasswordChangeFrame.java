@@ -4,11 +4,7 @@ import com.zimmerverwaltung.ui.custom.panels.PasswordChangePanel;
 import com.zimmerverwaltung.ui.util.CustomFrame;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gabriel
- * Date: 07.06.13
- * Time: 10:31
- * To change this template use File | Settings | File Templates.
+ * Oberfläche zum ändern des Passworts
  */
 public class PasswordChangeFrame extends CustomFrame {
 	private PasswordChangePanel content;

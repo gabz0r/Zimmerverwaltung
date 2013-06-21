@@ -10,14 +10,6 @@ import java.awt.event.*;
 import java.util.*;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gabriel
- * Date: 13.05.13
- * Time: 10:47
- * To change this template use File | Settings | File Templates.
- */
-
-/**
  * Panel zeigt die Daten des gerade selektierten Raums an
  */
 public class RoomInfoPanel extends CustomPanel implements Observer {
@@ -54,7 +46,7 @@ public class RoomInfoPanel extends CustomPanel implements Observer {
         watchImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(currentRoom != null) {
+                if(currentRoom != null && !currentRoom.getImgPath().equals("")) {
                     ImageFrame.getImageFrame(currentRoom.getImgPath());
                 }
             }
@@ -70,7 +62,7 @@ public class RoomInfoPanel extends CustomPanel implements Observer {
         this.add(qm);
         this.add(watchImg);
 
-        SpringUtilities.makeCompactGrid(this, 8, 1, 10, 10, 10, 10);
+        SpringUtilities.makeCompactGrid(this, 8, 1, 20, 20, 10, 10);
     }
 
     /**
@@ -87,7 +79,9 @@ public class RoomInfoPanel extends CustomPanel implements Observer {
                 Room selectedRoom = (Room)disp.getContent();
                 currentRoom = selectedRoom;
 
-                updateCurrentRoom(selectedRoom);
+                if(selectedRoom != null) {
+                    updateCurrentRoom(selectedRoom);
+                }
             }
         }
     }

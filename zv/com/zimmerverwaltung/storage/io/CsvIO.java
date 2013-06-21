@@ -4,17 +4,10 @@ import com.zimmerverwaltung.storage.container.Room;
 import com.zimmerverwaltung.storage.handler.DataHandler;
 import com.zimmerverwaltung.storage.handler.ZvwDataType;
 import com.zimmerverwaltung.users.User;
+import com.zimmerverwaltung.users.extended.Student;
 
 import java.io.*;
 import java.util.*;
-
-/**
- * Created with IntelliJ IDEA.
- * User: Penis
- * Date: 29.04.13
- * Time: 09:01
- * To change this template use File | Settings | File Templates.
- */
 
 /**
  * Backend - Klasse für die CSV - Dateien
@@ -27,7 +20,7 @@ public class CsvIO {
      */
     public static ArrayList<String> readRelevantLines(String fname) {
         try {
-            BufferedReader inr = new BufferedReader(new InputStreamReader(new FileInputStream(fname), "ISO-8859-1"));
+            BufferedReader inr = new BufferedReader(new InputStreamReader(new FileInputStream(fname), "ISO-8859-15"));
             String line = "";
             ArrayList<String> ret = new ArrayList<String>();
             int i = 0;
@@ -74,21 +67,17 @@ public class CsvIO {
         switch(type) {
             case EDT_ROOM: {
                 try {
-                    BufferedReader inr = new BufferedReader(new InputStreamReader(new FileInputStream("zimmer_verg_zimmer.csv"), "ISO-8859-1"));
+                    BufferedReader inr = new BufferedReader(new InputStreamReader(new FileInputStream("zimmer_verg_zimmer.csv"), "ISO-8859-15"));
                     String line = inr.readLine();
                     String[] head = line.split(";");
 
-                    String[] ret = new String[head.length + 1];
-                    System.arraycopy(head,0,ret, 1, head.length);
-                    ret[0] = "id";
-
-                    return ret;
+                    return head;
                 } catch (FileNotFoundException e) { return null; }
                   catch (IOException e)           { return null; }
             }
             case EDT_USER: {
                 try {
-                    BufferedReader inr = new BufferedReader(new InputStreamReader(new FileInputStream("zimmer_verg_login.csv"), "ISO-8859-1"));
+                    BufferedReader inr = new BufferedReader(new InputStreamReader(new FileInputStream("zimmer_verg_login.csv"), "ISO-8859-15"));
                     String line = inr.readLine();
                     String[] head = line.split(";");
                     return head;
@@ -130,7 +119,19 @@ public class CsvIO {
             }
 
             new File("zimmer_verg_login.csv").delete();
-            PrintWriter outw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("zimmer_verg_login.csv"), "ISO-8859-1"));
+            PrintWriter outw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("zimmer_verg_login.csv"), "ISO-8859-15"));
+            String[] headerArray = CsvIO.getColumnNames(ZvwDataType.EDT_USER);
+            String header = "";
+
+            for(int i = 0; i < headerArray.length; i++) {
+                if(i == 0) {
+                    header += headerArray[i];
+                } else {
+                    header += ";" + headerArray[i];
+                }
+            }
+
+            outw.println(header);
 
             for(String l : newLines) {
                 outw.println(l);
@@ -173,7 +174,7 @@ public class CsvIO {
 
         try {
             new File("zimmer_verg_login.csv").delete();
-            PrintWriter outw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("zimmer_verg_login.csv"), "ISO-8859-1"));
+            PrintWriter outw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("zimmer_verg_login.csv"), "ISO-8859-15"));
 
             for(String l : newLines) {
                 outw.println(l);
@@ -188,4 +189,88 @@ public class CsvIO {
 
     }
 
+    /**
+     * Löscht die Zimmerdatei und legt sie neu an
+     * Dabei werden die im Programm geänderten Eigenschaften übernommen
+     */
+    public static void updateRoomFile() {
+        ArrayList<Room> rl = DataHandler.getRooms();
+
+        try {
+            String[] header = CsvIO.getColumnNames(ZvwDataType.EDT_ROOM);
+            new File("zimmer_verg_zimmer.csv").delete();
+            PrintWriter outw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("zimmer_verg_zimmer.csv"), "ISO-8859-15"));
+
+            for(int i = 0; i < header.length; i++) {
+                if(i == 0) {
+                    outw.print(header[i]);
+                }
+                else {
+                    outw.print(";" + header[i]);
+                }
+            }
+
+            outw.println();
+
+            for(Room r : rl) {
+                outw.println(r.getDescription() + ";" + r.getLandlord() + ";" +
+                             r.getStreet() + ";" + r.getLocation() + ";" +
+                             r.getFees() + ";" + r.getDistance() + ";" +
+                             r.getQm() + ";" + r.getImgPath() + ";" + r.getId());
+            }
+
+            outw.flush();
+            outw.close();
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+    }
+
+    /**
+     * Löscht die Benutzerdatei und legt sie neu an
+     * Dabei werden die im Programm geänderten Eigenschaften übernommen
+     */
+    public static void updateUserFile() {
+        ArrayList<User> ul = DataHandler.getUsers();
+
+        try {
+            String[] header = CsvIO.getColumnNames(ZvwDataType.EDT_USER);
+            new File("zimmer_verg_login.csv").delete();
+            PrintWriter outw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("zimmer_verg_login.csv"), "ISO-8859-15"));
+
+            for(int i = 0; i < header.length; i++) {
+                if(i == 0) {
+                    outw.print(header[i]);
+                }
+                else {
+                    outw.print(";" + header[i]);
+                }
+            }
+
+            outw.println();
+
+            for(User u : ul) {
+                String assignedRoomValue = "";
+                if(u instanceof Student) {
+                    assignedRoomValue = ";" + String.valueOf(((Student)u).getMyRoomId());
+                }
+
+                outw.println(u.getLastName() + ";" + u.getFirstName() + ";" +
+                        u.getRoleName() + ";" + u.getUserName() + ";" +
+                        u.getPassword() + assignedRoomValue);
+            }
+
+            outw.flush();
+            outw.close();
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
 }

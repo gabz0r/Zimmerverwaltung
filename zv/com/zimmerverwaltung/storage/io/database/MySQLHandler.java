@@ -3,14 +3,6 @@ package com.zimmerverwaltung.storage.io.database;
 import java.sql.ResultSet;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gabriel
- * Date: 29.04.13
- * Time: 09:33
- * To change this template use File | Settings | File Templates.
- */
-
-/**
  * Implementiert das Interface IGeneralDbHandler für die MySQL - Datenbank
  */
 public class MySQLHandler implements IGeneralDbHandler {

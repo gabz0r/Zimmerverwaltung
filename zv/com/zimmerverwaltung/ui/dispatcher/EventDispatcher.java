@@ -3,11 +3,7 @@ package com.zimmerverwaltung.ui.dispatcher;
 import java.util.*;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gabriel
- * Date: 13.05.13
- * Time: 11:01
- * To change this template use File | Settings | File Templates.
+ * Klasse zum weiterleiten von Events
  */
 public class EventDispatcher extends Observable {
     private static EventDispatcher instance;

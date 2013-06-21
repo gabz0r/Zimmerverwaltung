@@ -7,19 +7,9 @@ import com.zimmerverwaltung.ui.dispatcher.EventDispatcher;
 import com.zimmerverwaltung.ui.dispatcher.EventTargets;
 import com.zimmerverwaltung.users.extended.Student;
 
-import javax.swing.*;
 import javax.swing.table.*;
-import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
-
-/**
- * Created with IntelliJ IDEA.
- * User: Gabriel
- * Date: 07.05.13
- * Time: 09:56
- * To change this template use File | Settings | File Templates.
- */
 
 /**
  * Das Benutzerdefinierte Datenmodell

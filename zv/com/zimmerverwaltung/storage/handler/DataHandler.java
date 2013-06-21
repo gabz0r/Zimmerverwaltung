@@ -2,7 +2,6 @@ package com.zimmerverwaltung.storage.handler;
 
 import com.zimmerverwaltung.storage.container.*;
 import com.zimmerverwaltung.storage.io.CsvIO;
-import com.zimmerverwaltung.storage.io.UserFileProperty;
 import com.zimmerverwaltung.ui.MainFrame;
 import com.zimmerverwaltung.users.*;
 import com.zimmerverwaltung.users.extended.Student;
@@ -12,8 +11,6 @@ import java.sql.SQLException;
 import java.util.*;
 
 /**
- * @author Gabriel
- * @version 0.1
  * Verwaltet alle Daten, die aus den CSV - Dateien kommen
  */
 public class DataHandler {
@@ -137,6 +134,13 @@ public class DataHandler {
                 }
                 break;
             }
+            case EST_LANDLORD: {
+                for(Room r : rooms) {
+                    if(r.getLandlord().toLowerCase().contains(token.toLowerCase())) {
+                        results.add(r);
+                    }
+                }
+            }
             default: {
                 break;
             }
@@ -197,6 +201,13 @@ public class DataHandler {
                 }
                 break;
             }
+            case EST_LANDLORD: {
+                for(Room r : searchContainer) {
+                    if(r.getLandlord().toLowerCase().contains(token.toLowerCase())) {
+                        results.add(r);
+                    }
+                }
+            }
             default: {
                 break;
             }
@@ -219,14 +230,15 @@ public class DataHandler {
      */
     public static Room getRoomByRowData(String[] data) {
         for(Room r : rooms) {
-            if(r.getId() == Integer.parseInt(data[0]) &&
-               r.getDescription().equals(data[1]) &&
-               r.getLandlord().equals(data[2]) &&
-               r.getStreet().equals(data[3]) &&
-               r.getLocation().equals(data[4]) &&
-               r.getFees().equals(data[5]) &&
-               r.getDistance().equals(data[6]) &&
-               r.getQm() == Float.parseFloat(data[7])) {
+            if(
+               r.getDescription().equals(data[0]) &&
+               r.getLandlord().equals(data[1]) &&
+               r.getStreet().equals(data[2]) &&
+               r.getLocation().equals(data[3]) &&
+               r.getFees().equals(data[4]) &&
+               r.getDistance().equals(data[5]) &&
+               r.getQm() == Float.parseFloat(data[6].replace(",", ".")) &&
+               r.getId() == Integer.parseInt(data[8])) {
 
                 return r;
             }
@@ -267,11 +279,30 @@ public class DataHandler {
     }
 
     /**
+     * Holt auf Basis der übergebenen Daten einen Benutzer aus dem internen Container und gibt diesen zurück
+     * @param name Vorname
+     * @param lastname Nachname
+     * @return Das Benutzerobjekt, falls der Benutzer vorhanden ist, andernfalls null
+     */
+    public static User getCorrespondingUserObjectEx(String name, String lastname) {
+        for(User u : users) {
+            if(u.getFirstName().equals(name) && u.getLastName().equals(lastname)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Speichert alle Daten, die in den Containern aufgenommen wurden
      */
     public static void writeAllData() {
-        CsvIO.updateUserDataFile(MainFrame.getMainFrame().getCurrentUser(), UserFileProperty.EUP_PASSWORD);
-        CsvIO.appendRoomsToUser(MainFrame.getMainFrame().getCurrentUser(), ((Student)MainFrame.getMainFrame().getCurrentUser()).getWatchList());
+        CsvIO.updateRoomFile();
+        CsvIO.updateUserFile();
+
+        if(MainFrame.getMainFrame().getCurrentUser() instanceof Student) {
+            CsvIO.appendRoomsToUser(MainFrame.getMainFrame().getCurrentUser(), ((Student)MainFrame.getMainFrame().getCurrentUser()).getWatchList());
+        }
     }
 
     /**
@@ -295,15 +326,15 @@ public class DataHandler {
             case EDT_ROOM: {
                 String[][] roomsRet = new String[rooms.size()][9];
                 for(int i = 0; i < rooms.size(); i++) {
-                    roomsRet[i][0] = String.valueOf(rooms.get(i).getId());
-                    roomsRet[i][1] = rooms.get(i).getDescription();
-                    roomsRet[i][2] = rooms.get(i).getLandlord();
-                    roomsRet[i][3] = rooms.get(i).getStreet();
-                    roomsRet[i][4] = rooms.get(i).getLocation();
-                    roomsRet[i][5] = rooms.get(i).getFees();
-                    roomsRet[i][6] = rooms.get(i).getDistance();
-                    roomsRet[i][7] = String.valueOf(rooms.get(i).getQm()) + " m²";
-                    roomsRet[i][8] = rooms.get(i).getImgPath();
+                    roomsRet[i][0] = rooms.get(i).getDescription();
+                    roomsRet[i][1] = rooms.get(i).getLandlord();
+                    roomsRet[i][2] = rooms.get(i).getStreet();
+                    roomsRet[i][3] = rooms.get(i).getLocation();
+                    roomsRet[i][4] = rooms.get(i).getFees();
+                    roomsRet[i][5] = rooms.get(i).getDistance();
+                    roomsRet[i][6] = (String.valueOf(rooms.get(i).getQm()) + " m²").replace(".", ",");
+                    roomsRet[i][7] = rooms.get(i).getImgPath();
+                    roomsRet[i][8] = String.valueOf(rooms.get(i).getId());
                 }
                 return roomsRet;
             }
@@ -333,15 +364,15 @@ public class DataHandler {
             else if(data.get(0).getClass() == Room.class) {
                 String[][] roomsRet = new String[data.size()][9];
                 for(int i = 0; i < data.size(); i++) {
-                    roomsRet[i][0] = String.valueOf(rooms.get(i).getId());
-                    roomsRet[i][1] = ((Room)data.get(i)).getDescription();
-                    roomsRet[i][2] = ((Room)data.get(i)).getLandlord();
-                    roomsRet[i][3] = ((Room)data.get(i)).getStreet();
-                    roomsRet[i][4] = ((Room)data.get(i)).getLocation();
-                    roomsRet[i][5] = ((Room)data.get(i)).getFees();
-                    roomsRet[i][6] = ((Room)data.get(i)).getDistance();
-                    roomsRet[i][7] = String.valueOf(((Room)data.get(i)).getQm()) + " m²";
-                    roomsRet[i][8] = ((Room)data.get(i)).getImgPath();
+                    roomsRet[i][0] = ((Room)data.get(i)).getDescription();
+                    roomsRet[i][1] = ((Room)data.get(i)).getLandlord();
+                    roomsRet[i][2] = ((Room)data.get(i)).getStreet();
+                    roomsRet[i][3] = ((Room)data.get(i)).getLocation();
+                    roomsRet[i][4] = ((Room)data.get(i)).getFees();
+                    roomsRet[i][5] = ((Room)data.get(i)).getDistance();
+                    roomsRet[i][6] = (String.valueOf(((Room)data.get(i)).getQm()) + " m²").replace(".", ",");;
+                    roomsRet[i][7] = ((Room)data.get(i)).getImgPath();
+                    roomsRet[i][8] = String.valueOf(rooms.get(i).getId());
                 }
                 return roomsRet;
             }
@@ -400,5 +431,55 @@ public class DataHandler {
             }
         }
         return ret;
+    }
+
+    public static void removeRoom(Room r) {
+        rooms.remove(r);
+    }
+
+    public static void addRoom(Room r) {
+        rooms.add(r);
+    }
+
+    /**
+     * Generiert die nächstgrößte Zimmer - ID für ein neu erstelltes Zimmer
+     * @return Die neue ID
+     */
+    public static int nextRoomID() {
+        int maxId = 0;
+        for(Room r : rooms) {
+            if(r.getId() > maxId) {
+                maxId = r.getId();
+            }
+        }
+
+        return ++maxId;
+    }
+
+    /**
+     * Erstellt eine nach den Benutzerrollen gefilterte Benutzerliste
+     * @param role Rollenname ("Student", "Mitarbeiter", "Vermieter")
+     * @return Die gefilterte Liste
+     */
+    public static ArrayList<User> getUsersByRole(String role) {
+        ArrayList<User> ret = new ArrayList<User>();
+
+        for(User u : users) {
+            if(u.getRoleName().equals(role)) {
+                ret.add(u);
+            }
+        }
+
+        return ret;
+    }
+
+    //Getter
+
+    public static ArrayList<Room> getRooms() {
+        return rooms;
+    }
+
+    public static ArrayList<User> getUsers() {
+        return users;
     }
 }

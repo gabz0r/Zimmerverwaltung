@@ -1,13 +1,5 @@
 package com.zimmerverwaltung.users;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Gabriel
- * Date: 25.04.13
- * Time: 11:25
- * To change this template use File | Settings | File Templates.
- */
-
 import com.zimmerverwaltung.storage.handler.DataHandler;
 import com.zimmerverwaltung.ui.LoginFrame;
 import com.zimmerverwaltung.ui.MainFrame;
@@ -18,8 +10,6 @@ import com.zimmerverwaltung.users.extended.Student;
 import java.util.HashMap;
 
 /**
- * @author Gabriel
- * @version 0.1
  * Basisfunktionalität für den Benutzer:
  *  - Einloggen
  *  - Ausloggen
@@ -100,5 +90,10 @@ public abstract class User {
     public void logout() {
         LoginFrame.getLoginFrame();
         MainFrame.getMainFrame().close();
+    }
+
+    @Override
+    public String toString() {
+        return this.getFirstName() + " " + this.getLastName();
     }
 }

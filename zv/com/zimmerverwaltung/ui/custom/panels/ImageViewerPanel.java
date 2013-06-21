@@ -9,14 +9,6 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gabriel
- * Date: 21.05.13
- * Time: 11:18
- * To change this template use File | Settings | File Templates.
- */
-
-/**
  * Panel für die Bildvorschau
  */
 public class ImageViewerPanel extends CustomPanel {
